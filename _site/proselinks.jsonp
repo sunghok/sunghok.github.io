@@ -28,6 +28,11 @@ callback([
   {
     "text": "New Surface Visualization",
     "href": "http://localhost:4000/2016/05/02/New-Surface-Visualization/"
+  } ,
+
+  {
+    "text": "Deep Deep Deep Learning",
+    "href": "http://localhost:4000/project1/2017/09/01/test/"
   } 
 
 ])

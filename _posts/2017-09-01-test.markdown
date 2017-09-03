@@ -1,0 +1,11 @@
+---
+layout:     notebook
+title:      Deep Deep Deep Learning
+author:     skim
+tags: 		jupyter workflows template
+subtitle:   one two three
+category:  project1
+
+notebookfilename: intro
+visualworkflow: true
+---
