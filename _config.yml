@@ -1,19 +1,19 @@
 # Site settings
 title: Sungho Kim
 description: "Data Portfolio"
-url: "https://projectpages.github.io"
+url: "https://sunghok.github.io"
 
 
 
 
 # Secondary Parameters
-baseurl: "/"
+baseurl: ""
 header-img: img/night-bg.jpg
 headercolor: "#FFFFFF"
 
 # Tertiary Parameters
-github_username:  projectpages
-project_repository: project-pages
+github_username:  sunghok
+project_repository: sunghok.github.io
 disqus_shortname: project-pages
 g-analytics: UA-75881392-1
 altmetric: true
