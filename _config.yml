@@ -7,7 +7,7 @@ url: "https://sunghok.github.io"
 
 
 # Secondary Parameters
-baseurl: "/project-pages"
+baseurl: ""
 header-img: "img/night-bg.jpg"
 headercolor: "#FFFFFF"
 
@@ -35,7 +35,7 @@ defaults:
       type: "pages"
     values:
       layout: "project"
-      header-img: "img/home-bg.jpg"
+      header-img: "img/night-bg.jpg"
 
 # Prose Settings
 prose:
