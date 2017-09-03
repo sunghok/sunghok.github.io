@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>New Surface Visualization - SUNGHO KIM</title>
+		<title>New Surface Visualization - Sungho Kim</title>
 		<meta charset="utf-8">
 		
 		
@@ -24,8 +24,8 @@
 		
 		<meta property="og:title" content="New Surface Visualization" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="http://localhost:4000//home//2016/05/02/New-Surface-Visualization/" />
-<meta property="og:image" content="http://localhost:4000//home/img/night-bg.jpg">
+<meta property="og:url" content="http://localhost:4000//project-pages//2016/05/02/New-Surface-Visualization/" />
+<meta property="og:image" content="http://localhost:4000//project-pages/img/home-bg.jpg">
 		
 		<style>
 			body {
@@ -55,9 +55,9 @@
 
 
 		
-		<script src="http://localhost:4000/home/js/plythreejs/three.min.js "></script>
-		<script src="http://localhost:4000/home/js/plythreejs/TransformControls.js "></script>
-		<script src="http://localhost:4000/home/js/plythreejs/PLYLoader.js "></script>
+		<script src="http://localhost:4000/project-pages/js/plythreejs/three.min.js "></script>
+		<script src="http://localhost:4000/project-pages/js/plythreejs/TransformControls.js "></script>
+		<script src="http://localhost:4000/project-pages/js/plythreejs/PLYLoader.js "></script>
 
 		<script>
 
@@ -66,7 +66,7 @@
             var mesh
 
             var loader = new THREE.PLYLoader();
-            loader.load( '/home/ply/ChunkColoredWeb.ply', function ( geometry ) {
+            loader.load( '/project-pages/ply/ChunkColoredWeb.ply', function ( geometry ) {
 
                 geometry.computeBoundingBox()
                 geometry.translate(-((geometry.boundingBox.max.x - geometry.boundingBox.min.x)/2 + geometry.boundingBox.min.x) , -((geometry.boundingBox.max.y - geometry.boundingBox.min.y)/2 + geometry.boundingBox.min.y) , -((geometry.boundingBox.max.z - geometry.boundingBox.min.z)/2 + geometry.boundingBox.min.z));                
