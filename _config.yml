@@ -1,13 +1,12 @@
 # Site settings
-title: Sungho Kim
-description: "Data Portfolio"
+title: "SUNGHO KIM"
+description: "Data Analysis Portfolio"
 url: "https://sunghok.github.io"
 
 
 
-
 # Secondary Parameters
-baseurl: ""
+baseurl: "/home"
 header-img: "img/night-bg.jpg"
 headercolor: "#FFFFFF"
 
