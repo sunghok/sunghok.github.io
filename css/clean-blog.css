@@ -2,11 +2,12 @@
 .intro-header .post-heading,
 .intro-header .page-heading {
   padding: 100px 0 50px;
+  margin: 38px;               /*  page heading 크기 조절  */
   color: #FFFFFF;
 }
 body {
   font-family: 'Lora', 'Times New Roman', serif;
-  font-size: 24px;
+  font-size: 20px;
   color: #404040;
 }
 p {
@@ -21,16 +22,17 @@ p.red {
   color: #FF0000;
 }
 
-h1,
+h1{                           /*  이름 크기 조절  */
+  font-family: 'Open Sans';   
+  font-weight: 700;
+}
 h2,
 h3,
 h4,
 h5,
 h6 {
-
-  font-family: 'Helvetica Neue', 
-  'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 300;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 330;
 }
 a {
   color: #404040;
@@ -46,10 +48,10 @@ blockquote {
   color: #808080;
   font-style: italic;
 }
-hr.small {
-  max-width: 150px;
-  margin: 20px auto;
-  border-width: 4px;
+hr.small {                     /*  막대기 조절  */
+  max-width: 130px;
+  margin: 38px auto;        
+  border-width: 3.5px;
   border-color: #FFFFFF;
 }
 .navbar-custom {
@@ -61,13 +63,13 @@ hr.small {
   z-index: 3;
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-.navbar-custom .navbar-brand {
-  font-weight: 350;
+.navbar-custom .navbar-brand {   
+  font-weight: 100;
 }
-.navbar-custom .nav li a {
+.navbar-custom .nav li a {          /*  메뉴 버튼 글자 크기/weight 조절  */
   text-transform: uppercase;
   font-size: 12px;
-  font-weight: 350;
+  font-weight: 600;
   letter-spacing: 1px;
 }
 @media only screen and (min-width: 768px) {
@@ -139,7 +141,7 @@ hr.small {
     transform: translate3d(0, 100%, 0);
   }
 }
-.intro-header {
+.intro-header {    /*  이름과 아래 제목 사이 간격 */
   background-color: #808080;
   background: no-repeat center center;
   background-attachment: scroll;
@@ -166,13 +168,13 @@ hr.small {
   font-size: 50px;
 }
 .intro-header .site-heading .subheading,
-.intro-header .page-heading .subheading {
-  font-size: 24px;
+.intro-header .page-heading .subheading {    /*  Data Portfolio (subtitle) 크기 이름 조정  위에랑 같이 조절하자 이름 부분*/
+  font-size: 34px;
   line-height: 1.1;
   display: block;
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 300;
-  margin: 10px 0 0;
+  margin: 15px 0 0;
 }
 @media only screen and (min-width: 768px) {
   .intro-header .site-heading h1,
@@ -188,7 +190,7 @@ hr.small {
   line-height: 1.1;
   display: block;
 }
-.intro-header .post-heading .subheading {
+.intro-header .post-heading .subheading {     
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 24px;
   margin: 10px 0 30px;
@@ -219,20 +221,21 @@ hr.small {
   text-decoration: none;
   color: #0085a1;
 }
-.post-preview > a > .post-title {
+.post-preview > a > .post-title {  /* 포스트 제목 소제목 사이 간격   text-align: left;*/ 
   font-size: 30px;
   margin-top: 30px;
   margin-bottom: 10px;
 }
-.post-preview > a > .post-subtitle {
+.post-preview > a > .post-subtitle {  /* 포스트 소제목 */
   margin: 0;
   font-weight: 300;
   margin-bottom: 10px;
 }
-.post-preview > .post-meta {
+.post-preview > .post-meta { /*포스트 date: 원래는 Italic. 지금은 Times*/
+  margin: 0;
   color: #808080;
-  font-size: 18px;
-  font-style: italic;
+  font-size: 17px;
+  font-style: Times;
   margin-top: 0;
 }
 .post-preview > .post-meta > a {
@@ -254,7 +257,7 @@ hr.small {
   margin-top: 60px;
   font-weight: 700;
 }
-.caption {
+.caption {   
   text-align: center;
   font-size: 14px;
   padding: 10px;
@@ -271,12 +274,12 @@ footer .list-inline {
   margin: 0;
   padding: 0;
 }
-footer .copyright {
-  font-size: 14px;
+footer .copyright {             /*카피라잇 */
+  font-size: 10px;
   text-align: center;
   margin-bottom: 0;
 }
-.floating-label-form-group {
+.floating-label-form-group {  /*카피라잇 */
   font-size: 14px;
   position: relative;
   margin-bottom: 0;
@@ -284,7 +287,7 @@ footer .copyright {
   border-bottom: 1px solid #eeeeee;
 }
 .floating-label-form-group input,
-.floating-label-form-group textarea {
+.floating-label-form-group textarea {   
   z-index: 1;
   position: relative;
   padding-right: 0;
@@ -323,7 +326,7 @@ footer .copyright {
 .floating-label-form-group-with-focus label {
   color: #0085a1;
 }
-form .row:first-child .floating-label-form-group {
+form .row:first-child .floating-label-form-group { 
   border-top: 1px solid #eeeeee;
 }
 .btn {
@@ -349,7 +352,7 @@ form .row:first-child .floating-label-form-group {
   margin: 20px 0 0;
 }
 .pager li > a,
-.pager li > span {
+.pager li > span {            /* Previous 포스트 네모박스 설정 */ 
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-size: 14px;
@@ -402,7 +405,7 @@ body {
   webkit-tap-highlight-color: #0085a1;
 }
 
-div.notepad-index-post-tags {
+div.notepad-index-post-tags {   /* 포스트 태그들 작은 네모박스 설정 */ 
     font-size: 16px;
     float: none;
     color: black;

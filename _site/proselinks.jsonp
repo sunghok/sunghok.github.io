@@ -11,28 +11,8 @@ callback([
   } ,
 
   {
-    "text": "New Matlab Script",
-    "href": "http://localhost:4000/project1/2016/05/02/New-Matlab-Script/"
-  } ,
-
-  {
-    "text": "New Presentation",
-    "href": "http://localhost:4000/2016/05/02/New-Presentation/"
-  } ,
-
-  {
-    "text": "New Projector",
-    "href": "http://localhost:4000/2016/05/02/New-Projector/"
-  } ,
-
-  {
-    "text": "New Surface Visualization",
-    "href": "http://localhost:4000/2016/05/02/New-Surface-Visualization/"
-  } ,
-
-  {
-    "text": "Deep Deep Deep Learning",
-    "href": "http://localhost:4000/project1/2017/09/01/test/"
+    "text": "Deep Learning (Test)",
+    "href": "http://localhost:4000/2017/09/01/Deep-Learning/"
   } 
 
 ])
