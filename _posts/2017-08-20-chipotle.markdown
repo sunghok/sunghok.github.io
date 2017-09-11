@@ -1,0 +1,72 @@
+---
+layout:     post
+title:      Exploring Chipotle Order Data 
+author:     Sungho Kim
+<!-- tags: 		post template -->
+subtitle:  	Using python to analyze the order data from Grubhub
+<!-- category:  project1 -->
+---
+
+
+
+I found a data is based on about 3,000 meals in about 1,800 Grubhub orders from July to December 2012. These are from two Chipotle restaurants in Wahsington D.C & East Lansing. It seemed interesting for me to explore dataset by asking questions like what items people order the most, what is the average order price and etc. 
+
+
+First, Load tsv file first by using Pandas and print(df.head(10)) to see the format of data and first 10 items on the list. I recommend you to do this on every data set, before you execute any commands on data. 
+
+<pre style='color:#d1d1d1;background:#000000;'><span style='color:#e66170; font-weight:bold; '>import</span> pandas <span style='color:#e66170; font-weight:bold; '>as</span> pd
+df <span style='color:#d2cd86; '>=</span> pd<span style='color:#d2cd86; '>.</span>read_table<span style='color:#d2cd86; '>(</span><span style='color:#00c4c4; '>'orders.tsv'</span><span style='color:#d2cd86; '>)</span>
+<span style='color:#e66170; font-weight:bold; '>print</span><span style='color:#d2cd86; '>(</span>df<span style='color:#d2cd86; '>.</span>head<span style='color:#d2cd86; '>(</span><span style='color:#00a800; '>10</span><span style='color:#d2cd86; '>)</span><span style='color:#d2cd86; '>)</span>
+</pre>
+
+
+<!-- <img src = "http://sunghok.github.io/img/chip1.png">  
+![a](http://sunghok.github.io/img/chip1.png") -->
+
+As you can see it from table, the data is described by order_id, quantity, item_name, choice_descrptiption and price. Let's try to look at which i is most popular on the list. You can use matplotlib.pyplot to visualize the data. 
+
+
+
+<pre style='color:#d1d1d1;background:#000000;'><span style='color:#e66170; font-weight:bold; '>import</span> matplotlib<span style='color:#d2cd86; '>.</span>pyplot <span style='color:#e66170; font-weight:bold; '>as</span> plt
+items <span style='color:#d2cd86; '>=</span> df<span style='color:#d2cd86; '>.</span>item_name<span style='color:#d2cd86; '>.</span>value_counts<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span><span style='color:#d2cd86; '>.</span>plot<span style='color:#d2cd86; '>(</span>kind<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"bar"</span><span style='color:#d2cd86; '>)</span>
+plt<span style='color:#d2cd86; '>.</span>show<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span>
+</pre>
+
+It seems like the most popular item is "Chicken Bowl" and unpopular items are "Carnitas Salad" and "Veggie Crispy Tacos". Let’s zoom the graph little bit closer and see what those 10 items are. To do this, type the following command.
+
+
+<pre style='color:#d1d1d1;background:#000000;'>top10 <span style='color:#d2cd86; '>=</span> df<span style='color:#d2cd86; '>.</span>item_name<span style='color:#d2cd86; '>.</span>value_counts<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span><span style='color:#d2cd86; '>[</span><span style='color:#d2cd86; '>:</span><span style='color:#00a800; '>10</span><span style='color:#d2cd86; '>]</span><span style='color:#d2cd86; '>.</span>plot<span style='color:#d2cd86; '>(</span>kind<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"bar"</span><span style='color:#d2cd86; '>)</span>
+plt<span style='color:#d2cd86; '>.</span>show<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span>
+</pre>
+
+
+
+Now you can see the name of items clearly than before. If you look at the top10 list, it is interesting to see that two items (Canned Soda, bottled water) from top10 are beverages. Let’s look at what kind of canned soda people ordered the most. 
+
+
+<pre style='color:#d1d1d1;background:#000000;'>df<span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>'item_price'</span><span style='color:#d2cd86; '>]</span> <span style='color:#d2cd86; '>=</span> df<span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>'item_price'</span><span style='color:#d2cd86; '>]</span><span style='color:#d2cd86; '>.</span><span style='color:#e66170; font-weight:bold; '>str</span><span style='color:#d2cd86; '>.</span>replace<span style='color:#d2cd86; '>(</span><span style='color:#00c4c4; '>'$'</span><span style='color:#d2cd86; '>,</span><span style='color:#00c4c4; '>''</span><span style='color:#d2cd86; '>)</span>  
+df<span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>'item_price'</span><span style='color:#d2cd86; '>]</span> <span style='color:#d2cd86; '>=</span> df<span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>'item_price'</span><span style='color:#d2cd86; '>]</span><span style='color:#d2cd86; '>.</span>astype<span style='color:#d2cd86; '>(</span><span style='color:#e66170; font-weight:bold; '>float</span><span style='color:#d2cd86; '>)</span>
+orders <span style='color:#d2cd86; '>=</span> df<span style='color:#d2cd86; '>.</span>groupby<span style='color:#d2cd86; '>(</span><span style='color:#00c4c4; '>'order_id'</span><span style='color:#d2cd86; '>)</span><span style='color:#d2cd86; '>.</span><span style='color:#e66170; font-weight:bold; '>sum</span><span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span>  
+<span style='color:#e66170; font-weight:bold; '>print</span><span style='color:#d2cd86; '>(</span>orders<span style='color:#d2cd86; '>.</span>head<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span><span style='color:#d2cd86; '>)</span>
+</pre>
+
+
+
+It was interesting to explore the items that are most ordered by cusomters from Chipolte. Now Let’s try to look at the data from business perspective and explore the data of price per order. First, you have to replace “$” with “” and change the data type to “float” in “item_price column” , because we would like to analyzes the numbers, instead of strings. 
+
+
+<pre style='color:#d1d1d1;background:#000000;'>descriptions <span style='color:#d2cd86; '>=</span> df<span style='color:#d2cd86; '>.</span>groupby<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>"item_name"</span><span style='color:#d2cd86; '>,</span> <span style='color:#00c4c4; '>"choice_description"</span><span style='color:#d2cd86; '>]</span><span style='color:#d2cd86; '>)</span><span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>"order_id"</span><span style='color:#d2cd86; '>]</span><span style='color:#d2cd86; '>.</span>count<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span><span style='color:#d2cd86; '>.</span>reset_index<span style='color:#d2cd86; '>(</span>name<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"count"</span><span style='color:#d2cd86; '>)</span>
+descriptions <span style='color:#d2cd86; '>=</span> descriptions<span style='color:#d2cd86; '>[</span>descriptions<span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>'item_name'</span><span style='color:#d2cd86; '>]</span><span style='color:#d2cd86; '>.</span><span style='color:#e66170; font-weight:bold; '>str</span><span style='color:#d2cd86; '>.</span>contains<span style='color:#d2cd86; '>(</span><span style='color:#00c4c4; '>"Canned Soda"</span><span style='color:#d2cd86; '>)</span><span style='color:#d2cd86; '>]</span>  
+descriptions<span style='color:#d2cd86; '>.</span>sort_values<span style='color:#d2cd86; '>(</span><span style='color:#00c4c4; '>'count'</span><span style='color:#d2cd86; '>,</span>ascending<span style='color:#d2cd86; '>=</span>False<span style='color:#d2cd86; '>)</span>
+<span style='color:#e66170; font-weight:bold; '>print</span><span style='color:#d2cd86; '>(</span>descriptions<span style='color:#d2cd86; '>)</span>
+
+descriptions<span style='color:#d2cd86; '>.</span>choice_description<span style='color:#d2cd86; '>.</span>value_counts<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span><span style='color:#d2cd86; '>.</span>plot<span style='color:#d2cd86; '>(</span>kind<span style='color:#d2cd86; '>=</span><span style='color:#00c4c4; '>"bar"</span><span style='color:#d2cd86; '>)</span>
+plt<span style='color:#d2cd86; '>.</span>show<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span>
+</pre>
+
+On average, it looks like people tend to spend 18.81 dollars per order. The minimum is 10.08 dollars per order and the maximum is 205 dollars per order. It is interesting to see that there is a person who orders 205 dollars worth of chipotle at one time. It looks like that person ordered catering or something. 
+
+
+It was fun to explore the data and find a trend in them. I am planning to post more like this in the future. If you have any questions, feedback, advice or corrections please get in touch with me on Linkedin or email me at sunghokim@wustl.edu I referred to this blog http://www.danielforsyth.me/pandas-burritos-analyzing-chipotle-order-data-2/ to write this post. 
+
+

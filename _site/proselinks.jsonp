@@ -11,8 +11,8 @@ callback([
   } ,
 
   {
-    "text": "Deep Learning (Test)",
-    "href": "http://localhost:4000/2017/09/01/Deep-Learning/"
+    "text": "Exploring Chipotle Order Data",
+    "href": "http://localhost:4000/2017/08/20/chipotle/"
   } 
 
 ])
