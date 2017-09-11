@@ -5,8 +5,8 @@
     <description>Data Science Portfolio</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 11 Sep 2017 12:23:36 -0400</pubDate>
-    <lastBuildDate>Mon, 11 Sep 2017 12:23:36 -0400</lastBuildDate>
+    <pubDate>Mon, 11 Sep 2017 13:07:50 -0400</pubDate>
+    <lastBuildDate>Mon, 11 Sep 2017 13:07:50 -0400</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
@@ -67,214 +67,147 @@ It was fun to explore the data and find a trend in them. I am planning to post m
       </item>
     
       <item>
-        <title>New Notebook</title>
-        <description>
+        <title>Clustering NBA Players</title>
+        <description>In this post, we’ll be using the K-nearest neighbors algorithm and euclidean distance to figure out figure out which NBA players are the most similar to Lebron James. I foudn out that Kemba Walker is the most simlar player to Lebron James according to the NBA data from 16-17 season.
+
+
+import pandas as pd
+import math
+
+nba = pd.read_csv(&amp;quot;nba17.csv&amp;quot;)
+
+# Lebron James
+
+# Select only the numeric columns from the NBA dataset
+nba_numeric = nba[distance_columns]
+# Normalize all of the numeric columns
+nba_normalized = (nba_numeric - nba_numeric.mean()) / nba_numeric.std()
+
+
+
+
+from scipy.spatial import distance
+# Fill in NA values in nba_normalized
+nba_normalized.fillna(0, inplace=True)
+# Find the normalized vector for lebron james.
+lebron_normalized = nba_normalized[nba[&amp;quot;player&amp;quot;] == &amp;quot;Lebron James&amp;quot;]
+
+
+# Find the distance between lebron james and everyone else.
+euclidean_distances = nba_normalized.apply(lambda row: distance.euclidean(row, lebron_normalized), axis=1)
+
+
+# Create a new dataframe with distances.
+distance_frame = pd.DataFrame(data={&amp;quot;dist&amp;quot;: euclidean_distances, &amp;quot;idx&amp;quot;: euclidean_distances.index})
+distance_frame = distance_frame.sort_values([&amp;quot;dist&amp;quot;], ascending=True)
+
+print(distance_frame)
+
+
+# Find the most similar player to lebron (the lowest distance to lebron is lebron, the second smallest is the most similar non-lebron player)
+second_smallest = distance_frame.iloc[1][&amp;quot;idx&amp;quot;]
+most_similar_to_lebron = nba.loc[int(second_smallest)][&amp;quot;player&amp;quot;]
+print(most_similar_to_lebron )
+
 </description>
-        <pubDate>Sun, 01 May 2016 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/project1/2016/05/01/New-Notebook/</link>
-        <guid isPermaLink="true">http://localhost:4000/project1/2016/05/01/New-Notebook/</guid>
+        <pubDate>Tue, 15 Aug 2017 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2017/08/15/nba_knn/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/08/15/nba_knn/</guid>
         
-        <category>jupyter</category>
-        
-        <category>workflows</category>
-        
-        <category>template</category>
-        
-        
-        <category>project1</category>
         
       </item>
     
       <item>
-        <title>New Post</title>
-        <description>
-
-Table of Contents
+        <title>Mapping NYC Motor Vehicle Collisions Data</title>
+        <description>Everyday when I walk around NYC, I see a lot of traffics and sometimes car accidents on the street. This made me wonder if there are certain spots where the car accidents happen more frequently than others. If there are patterns, I thought it would be interesting to visualize and show them on the map. To solve my curiosity, I organized the procedures as following.
 
 
-  Table of Contents
-  Basic Functionality    
-      Headers
-    
-  
-  Header 1    
-      Header 2        
-          Header 3
-        
-      
-      Styling
-      Lists
-      Links
-      Images
-      Code
-      MathJax
-      Tables
-      Quotes
-      Rule
-      HTML
-    
-  
-  Advanced Functionality    
-      Color and Alignment
-    
-  
-  Some Advanced Features    
-      Data Projector
-      STL
-    
-  
-
-
-Basic Functionality
-
-Headers
-
-Header 1
-
-Header 2
-
-Header 3
-
-Styling
-
-Bold
-
-Italics
-
-Bold and Italics
-
-Lists
-
-
-  
-    Item 1
-  
-  
-    Item 2
-  
+  Find the dataset
+  Clean the dataset for mapping
+  Visualize the dataset on Google map
 
 
 
-  
-    Unordered Item
-
-    
-      
-        Sub Item 1
-
-        
-          Bold Sub Sub Ordered Item
-        
-      
-    
-  
-
-
-Links
-
-In-Line
-
-I’m a reference-style link 1
-
-I’m a reference-style link 1
-
-Images
-
-Hold your pointer clicked over the image to expand the view.
-
-
-
-Code
-
-Inline code.
-
-import numpy as np
-def hello_world():
-    print('Hello World!'')
-
-MathJax
-
-Use MathJax for Math.
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33import gmplot 
+import datetime
+import pandas as pd
+import matplotlib.pyplot as plt  
 
 
-Tables
+gmap = gmplot.GoogleMapPlotter(40.712784,-74.005941, 12)
+df = pd.read_csv(&amp;quot;2017.csv&amp;quot;)
+df = df.dropna(axis=0)
+
+df[&amp;quot;LATITUDE&amp;quot;] = df[&amp;quot;LATITUDE&amp;quot;].astype(float)
+df[&amp;quot;LONGITUDE&amp;quot;] = df[&amp;quot;LONGITUDE&amp;quot;].astype(float)
+df = df[[&amp;quot;LATITUDE&amp;quot;,&amp;quot;LONGITUDE&amp;quot;]]
+df.columns =[&amp;quot;lat&amp;quot;,&amp;quot;long&amp;quot;]
 
 
-  
-    
-      Here
-      is
-      a
-      row!
-    
-  
-  
-    
-      is
-      Left
-      Center
-      Right
-    
-    
-      a
-      cut
-      it
-      A
-    
-    
-      column
-      short
-      B
-      C
-    
-  
+df[&amp;quot;coordinate&amp;quot;] = list(zip(df.lat, df.long))
+df[&amp;#39;freq&amp;#39;] = df.groupby(&amp;#39;coordinate&amp;#39;)[&amp;#39;coordinate&amp;#39;].transform(&amp;#39;count&amp;#39;)
+
+mapping = df[[&amp;quot;lat&amp;quot;,&amp;quot;long&amp;quot;,&amp;quot;freq&amp;quot;]]
 
 
-Quotes
+yellow = mapping[mapping[&amp;quot;freq&amp;quot;]&amp;lt;=3] 
+green  = mapping[(mapping[&amp;quot;freq&amp;quot;]&amp;gt;3) &amp;amp; (mapping[&amp;quot;freq&amp;quot;]&amp;lt;10)]
+orange = mapping[(mapping[&amp;quot;freq&amp;quot;]&amp;lt;18) &amp;amp; (mapping[&amp;quot;freq&amp;quot;]&amp;gt;=10)]
+red    = mapping[mapping[&amp;quot;freq&amp;quot;]&amp;gt;17] 
 
 
-  War does not decide who is right, only who is left.
+gmap.scatter(yellow.lat,yellow.long, &amp;quot;yellow&amp;quot; , size=15, marker=False)  
+gmap.scatter(green.lat,green.long, &amp;quot;green&amp;quot; , size=20, marker=False)  
+gmap.scatter(orange.lat,orange.long, &amp;quot;orange&amp;quot; , size=25, marker=False)  
+gmap.scatter(red.lat,red.long, &amp;quot;red&amp;quot; , size=25, marker=False)  
+gmap.draw(&amp;quot;colorful2.html&amp;quot;)
 
 
-Rule
+Finding the dataset
+As always, choosing the right dataset is hardest problem in data analysis process. However, I was able to find the dataset called “NYPD Motor Vehicle Collisions” from NYC Open Data website. It provides open data for people to use and explore for free. It not only provides city government or transportation data, but also education, business and more. So if you are interested what is happening around the town, I highly recommend you to take a look at the data and explore.
 
+Cleaning the dataset 
+The dataset has more than 10 columns and one million rows. If I mapped all the million locations on the map, the map would look like a Yayoi Kusama’s art work rather than a map. So I decided to reduce my dataset and focus on accidents that happened in recent 3 months.
 
-
-HTML
-
-Can write the whole post or sections in HTML for very specific needs. [For the advanced user or the code savvy.]
-
-Advanced Functionality
-
-Head over to the documentation page for tutorials on some basic html formatting and some extensions you can use for cool stuff like interactive 3D visualizations.
-
-Color and Alignment
-
-This text is centered.
-
-This is a red text with blue and green inline text.
-
-Some Advanced Features
-
-Data Projector
-
-
-
-STL
-
-
+First, drop all the rows that have “NA” Second, select the columns that are needed for mapping (“LATIUDE” &amp;amp; “LONGTITUDE”) Third, make new column called “coordinate” that represents the spot. Finally, make another column called “frequency” which represents the frequency of coordinate.
 
 </description>
-        <pubDate>Tue, 19 Apr 2016 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/project1/2016/04/19/New-Post/</link>
-        <guid isPermaLink="true">http://localhost:4000/project1/2016/04/19/New-Post/</guid>
+        <pubDate>Sat, 05 Aug 2017 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2017/08/05/nyc_taxi/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/08/05/nyc_taxi/</guid>
         
-        <category>post</category>
-        
-        <category>template</category>
-        
-        
-        <category>project1</category>
         
       </item>
     

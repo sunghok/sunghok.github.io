@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Data Science Portfolio">
+	<meta property="og:title" content="Mapping NYC Motor Vehicle Collisions Data" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://localhost:4000///2017/08/05/nyc_taxi/" />
+<meta property="og:image" content="http://localhost:4000//img/home-bg.jpg">
+	
+	
+
+	<meta name="citation_title" content="Project Pages - An Integrated Scientific Blogging Template">
+
+
+<meta name="citation_author" content="Ahmet Cecen">
+
+
+<meta name="citation_author" content="David Brough">
+
+
+<meta name="citation_author" content="Surya R. Kalidindi">
+
+
+
+	
+	<link rel='shortcut icon' type='image/png' href='/favi.png' />
+
+    <title>Mapping NYC Motor Vehicle Collisions Data - SUNGHO KIM</title>
+
+    <link rel="canonical" href="http://localhost:4000/2017/08/05/nyc_taxi/">
+	
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="http://localhost:4000/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="http://localhost:4000/css/clean-blog.css">
+	
+	<!-- Adjust Colors -->
+    <link rel="stylesheet" href="http://localhost:4000/colorscheme.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="http://localhost:4000/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<!-- Math Jax -->
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+	</script>
+	<script type="text/javascript"
+	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
+	<script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+		TeX: { equationNumbers: { autoNumber: "AMS" } }
+	});
+	</script>
+
+	<!--<script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js" type="text/javascript"></script>-->
+
+    <!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+	<!-- Custom Theme JavaScript -->
+	<script src="http://localhost:4000/js/clean-blog.min.js "></script>
+	
+	
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75881392-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+	
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">SUNGHO KIM</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+				
+                
+                <li>
+                    <a href="/about/">About</a>
+                </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading" style="padding: 30px 0">
+                    <h1>Mapping NYC Motor Vehicle Collisions Data</h1>
+<!--                     
+                    <h2 class="subheading">Preparing and Cleaning Data for Visualization</h2>
+                    
+                    <span class="meta">Posted by Sungho Kim on August 5, 2017</span>	 -->
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+	
+	
+	
+	<div class="float-left">
+	<div class="recentpost" style="padding: 10px">
+	
+	<h4> Recently by the same author: </h4> 
+	
+	<hr class="style-one">
+	
+	<a href="/2017/08/20/chipotle/"><h2 class="post-title"> Exploring Chipotle Order Data</h2></a>
+	
+	
+		<h4 class="post-subtitle">Using python to analyze the order data from Grubhub</h4>
+	
+	
+	<p class="post-meta" style="margin-top: 5px;margin-bottom:5px; font-size: 0.8em">Posted by Sungho Kim on August 20, 2017</p>
+	
+	<div class="notepad-index-post-tags" style="">
+	
+	</div> 
+	
+			
+
+
+
+
+
+
+	
+	</div>
+	</div>
+	
+	
+	
+	
+		
+	
+
+<!-- Also Interesting -->
+
+
+
+	
+	
+	
+
+	
+	 
+	
+	
+	
+
+	
+	
+	
+
+
+		</div>
+		</div>
+
+<!-- Post Content -->
+<style>
+img {
+	display:block;
+	max-width:  100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+@media only screen and (min-width: 1000px) {
+img {
+	-moz-transition:-moz-transform 0.5s ease-in; 
+	-webkit-transition:-webkit-transform 0.5s ease-in; 
+	-o-transition:-o-transform 0.5s ease-in;
+}
+img:active{
+	-moz-transform:scale(1.2); 
+	-webkit-transform:scale(1.2);
+	-o-transform:scale(1.2);
+}
+}
+
+@media only screen and (min-width: 1250px) {
+img {
+	-moz-transition:-moz-transform 0.5s ease-in; 
+	-webkit-transition:-webkit-transform 0.5s ease-in; 
+	-o-transition:-o-transform 0.5s ease-in;
+}
+img:active{
+	-moz-transform:scale(1.5); 
+	-webkit-transform:scale(1.5);
+	-o-transform:scale(1.5);
+}
+}
+
+@media only screen and (min-width: 1500px) {
+img {
+	-moz-transition:-moz-transform 0.5s ease-in; 
+	-webkit-transition:-webkit-transform 0.5s ease-in; 
+	-o-transition:-o-transform 0.5s ease-in;
+}
+img:active{
+	-moz-transform:scale(2); 
+	-webkit-transform:scale(2);
+	-o-transform:scale(2);
+}
+}
+</style>
+
+<article>
+    <div id="content" class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<p>Everyday when I walk around NYC, I see a lot of traffics and sometimes car accidents on the street. This made me wonder if there are certain spots where the car accidents happen more frequently than others. If there are patterns, I thought it would be interesting to visualize and show them on the map. To solve my curiosity, I organized the procedures as following.</p>
+
+<ol>
+  <li>Find the dataset</li>
+  <li>Clean the dataset for mapping</li>
+  <li>Visualize the dataset on Google map</li>
+</ol>
+
+<!-- HTML generated using hilite.me -->
+<div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">gmplot</span> 
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">datetime</span>
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">pandas</span> <span style="color: #008800; font-weight: bold">as</span> <span style="color: #0e84b5; font-weight: bold">pd</span>
+<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">matplotlib.pyplot</span> <span style="color: #008800; font-weight: bold">as</span> <span style="color: #0e84b5; font-weight: bold">plt</span>  
+
+
+gmap <span style="color: #333333">=</span> gmplot<span style="color: #333333">.</span>GoogleMapPlotter(<span style="color: #6600EE; font-weight: bold">40.712784</span>,<span style="color: #333333">-</span><span style="color: #6600EE; font-weight: bold">74.005941</span>, <span style="color: #0000DD; font-weight: bold">12</span>)
+df <span style="color: #333333">=</span> pd<span style="color: #333333">.</span>read_csv(<span style="background-color: #fff0f0">&quot;2017.csv&quot;</span>)
+df <span style="color: #333333">=</span> df<span style="color: #333333">.</span>dropna(axis<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">0</span>)
+
+df[<span style="background-color: #fff0f0">&quot;LATITUDE&quot;</span>] <span style="color: #333333">=</span> df[<span style="background-color: #fff0f0">&quot;LATITUDE&quot;</span>]<span style="color: #333333">.</span>astype(<span style="color: #007020">float</span>)
+df[<span style="background-color: #fff0f0">&quot;LONGITUDE&quot;</span>] <span style="color: #333333">=</span> df[<span style="background-color: #fff0f0">&quot;LONGITUDE&quot;</span>]<span style="color: #333333">.</span>astype(<span style="color: #007020">float</span>)
+df <span style="color: #333333">=</span> df[[<span style="background-color: #fff0f0">&quot;LATITUDE&quot;</span>,<span style="background-color: #fff0f0">&quot;LONGITUDE&quot;</span>]]
+df<span style="color: #333333">.</span>columns <span style="color: #333333">=</span>[<span style="background-color: #fff0f0">&quot;lat&quot;</span>,<span style="background-color: #fff0f0">&quot;long&quot;</span>]
+
+
+df[<span style="background-color: #fff0f0">&quot;coordinate&quot;</span>] <span style="color: #333333">=</span> <span style="color: #007020">list</span>(<span style="color: #007020">zip</span>(df<span style="color: #333333">.</span>lat, df<span style="color: #333333">.</span>long))
+df[<span style="background-color: #fff0f0">&#39;freq&#39;</span>] <span style="color: #333333">=</span> df<span style="color: #333333">.</span>groupby(<span style="background-color: #fff0f0">&#39;coordinate&#39;</span>)[<span style="background-color: #fff0f0">&#39;coordinate&#39;</span>]<span style="color: #333333">.</span>transform(<span style="background-color: #fff0f0">&#39;count&#39;</span>)
+
+mapping <span style="color: #333333">=</span> df[[<span style="background-color: #fff0f0">&quot;lat&quot;</span>,<span style="background-color: #fff0f0">&quot;long&quot;</span>,<span style="background-color: #fff0f0">&quot;freq&quot;</span>]]
+
+
+yellow <span style="color: #333333">=</span> mapping[mapping[<span style="background-color: #fff0f0">&quot;freq&quot;</span>]<span style="color: #333333">&lt;=</span><span style="color: #0000DD; font-weight: bold">3</span>] 
+green  <span style="color: #333333">=</span> mapping[(mapping[<span style="background-color: #fff0f0">&quot;freq&quot;</span>]<span style="color: #333333">&gt;</span><span style="color: #0000DD; font-weight: bold">3</span>) <span style="color: #333333">&amp;</span> (mapping[<span style="background-color: #fff0f0">&quot;freq&quot;</span>]<span style="color: #333333">&lt;</span><span style="color: #0000DD; font-weight: bold">10</span>)]
+orange <span style="color: #333333">=</span> mapping[(mapping[<span style="background-color: #fff0f0">&quot;freq&quot;</span>]<span style="color: #333333">&lt;</span><span style="color: #0000DD; font-weight: bold">18</span>) <span style="color: #333333">&amp;</span> (mapping[<span style="background-color: #fff0f0">&quot;freq&quot;</span>]<span style="color: #333333">&gt;=</span><span style="color: #0000DD; font-weight: bold">10</span>)]
+red    <span style="color: #333333">=</span> mapping[mapping[<span style="background-color: #fff0f0">&quot;freq&quot;</span>]<span style="color: #333333">&gt;</span><span style="color: #0000DD; font-weight: bold">17</span>] 
+
+
+gmap<span style="color: #333333">.</span>scatter(yellow<span style="color: #333333">.</span>lat,yellow<span style="color: #333333">.</span>long, <span style="background-color: #fff0f0">&quot;yellow&quot;</span> , size<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">15</span>, marker<span style="color: #333333">=</span><span style="color: #008800; font-weight: bold">False</span>)  
+gmap<span style="color: #333333">.</span>scatter(green<span style="color: #333333">.</span>lat,green<span style="color: #333333">.</span>long, <span style="background-color: #fff0f0">&quot;green&quot;</span> , size<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">20</span>, marker<span style="color: #333333">=</span><span style="color: #008800; font-weight: bold">False</span>)  
+gmap<span style="color: #333333">.</span>scatter(orange<span style="color: #333333">.</span>lat,orange<span style="color: #333333">.</span>long, <span style="background-color: #fff0f0">&quot;orange&quot;</span> , size<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">25</span>, marker<span style="color: #333333">=</span><span style="color: #008800; font-weight: bold">False</span>)  
+gmap<span style="color: #333333">.</span>scatter(red<span style="color: #333333">.</span>lat,red<span style="color: #333333">.</span>long, <span style="background-color: #fff0f0">&quot;red&quot;</span> , size<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">25</span>, marker<span style="color: #333333">=</span><span style="color: #008800; font-weight: bold">False</span>)  
+gmap<span style="color: #333333">.</span>draw(<span style="background-color: #fff0f0">&quot;colorful2.html&quot;</span>)
+</pre></td></tr></table></div>
+
+<p>Finding the dataset
+As always, choosing the right dataset is hardest problem in data analysis process. However, I was able to find the dataset called “NYPD Motor Vehicle Collisions” from NYC Open Data website. It provides open data for people to use and explore for free. It not only provides city government or transportation data, but also education, business and more. So if you are interested what is happening around the town, I highly recommend you to take a look at the data and explore.</p>
+
+<p>Cleaning the dataset 
+The dataset has more than 10 columns and one million rows. If I mapped all the million locations on the map, the map would look like a Yayoi Kusama’s art work rather than a map. So I decided to reduce my dataset and focus on accidents that happened in recent 3 months.</p>
+
+<p>First, drop all the rows that have “NA” Second, select the columns that are needed for mapping (“LATIUDE” &amp; “LONGTITUDE”) Third, make new column called “coordinate” that represents the spot. Finally, make another column called “frequency” which represents the frequency of coordinate.</p>
+
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/08/15/nba_knn/" data-toggle="tooltip" data-placement="top" title="Clustering NBA Players">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+<!-- <div class="container" style="padding-right: 50px;padding-left: 50px;">
+<div class="row">
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" id="disqus_thread">
+
+</div>
+</div>
+</div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = '';
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+ -->
+
+<hr>
+
+
+	
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    <li>
+                        <a href="https://github.com/sunghok/">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+									
+                </ul>
+                <p class="copyright text-muted"> Copyright © <a href="http://ahmetcecen.github.io/" target="_blank">Ahmet Cecen</a>,  <a href="http://mined.gatech.edu/" target="_blank">MINED@GaTech</a> and <a href="https://github.com/projectpages" target="_blank">Project Pages</a> 2016. </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+</body>
+
+</html>
