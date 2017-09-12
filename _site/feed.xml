@@ -5,37 +5,38 @@
     <description>Data Science Portfolio</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 11 Sep 2017 13:07:50 -0400</pubDate>
-    <lastBuildDate>Mon, 11 Sep 2017 13:07:50 -0400</lastBuildDate>
+    <pubDate>Tue, 12 Sep 2017 00:39:10 -0400</pubDate>
+    <lastBuildDate>Tue, 12 Sep 2017 00:39:10 -0400</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
         <title>Exploring Chipotle Order Data</title>
-        <description>I found a data is based on about 3,000 meals in about 1,800 Grubhub orders from July to December 2012. These are from two Chipotle restaurants in Wahsington D.C &amp;amp; East Lansing. It seemed interesting for me to explore dataset by asking questions like what items people order the most, what is the average order price and etc.
+        <description>This data is based on about 1,800 Grubhub orders from July to December 2012. The data was collected from two Chipotle restaurants in Wahsington D.C &amp;amp; East Lansing. It seemed interesting for me to explore the dataset by asking questions like what items people order the most, what is the average order price, etc. I am going to use python to analyze the data.
 
-First, Load tsv file first by using Pandas and print(df.head(10)) to see the format of data and first 10 items on the list. I recommend you to do this on every data set, before you execute any commands on data.
+First, Load the tsv file using Pandas and print(df.head(10)) to see the format of data and first 10 items on the list. I recommend you to do this on every data set, before you execute any commands on the data.
+
+As you can see from table, the data is described by order_id, quantity, item_name, choice_descrptiption and price. Let’s try to look at which item is most ordered by people on the list. You can use matplotlib.pyplot to visualize the data.
 
 import pandas as pd
 df = pd.read_table('orders.tsv')
 print(df.head(10))
-
-
-
-
-As you can see it from table, the data is described by order_id, quantity, item_name, choice_descrptiption and price. Let’s try to look at which i is most popular on the list. You can use matplotlib.pyplot to visualize the data.
 
 import matplotlib.pyplot as plt
 items = df.item_name.value_counts().plot(kind=&quot;bar&quot;)
 plt.show()
 
 
-It seems like the most popular item is “Chicken Bowl” and unpopular items are “Carnitas Salad” and “Veggie Crispy Tacos”. Let’s zoom the graph little bit closer and see what those 10 items are. To do this, type the following command.
+
+
+It seems like the most popular item is the “Chicken Bowl” and the least ordered items are the “Carnitas Salad” and the “Veggie Crispy Tacos”. Besides the “Chicken Bowl”, I am curious as to what other items are most ordered. Let’s zoom in on the graph a little bit closer and see what those are. To do this, type the following command.
 
 top10 = df.item_name.value_counts()[:10].plot(kind=&quot;bar&quot;)
 plt.show()
 
 
-Now you can see the name of items clearly than before. If you look at the top10 list, it is interesting to see that two items (Canned Soda, bottled water) from top10 are beverages. Let’s look at what kind of canned soda people ordered the most.
+
+
+Now you can see the name of the items more clearly than before. If you look at the graph, it is interesting to see that two items (Canned Soda, bottled water) from the top 10 are beverages. Let’s look at what kind of canned soda people ordered the most.  It is interesting to see that Mountain Dew and Dr.Pepper ranked second and third respectively.
 
 df['item_price'] = df['item_price'].str.replace('$','')  
 df['item_price'] = df['item_price'].astype(float)
@@ -43,7 +44,9 @@ orders = df.groupby('order_id').sum()
 print(orders.head())
 
 
-It was interesting to explore the items that are most ordered by cusomters from Chipolte. Now Let’s try to look at the data from business perspective and explore the data of price per order. First, you have to replace “$” with “” and change the data type to “float” in “item_price column” , because we would like to analyzes the numbers, instead of strings.
+
+
+It was intriguing to explore the items that are most ordered by customers at Chipolte. Now, let’s try to look at the data from a business perspective and explore the data of price per order. First, you have to replace “$” with “” and change the data type to “float” in “item_price column”, because we would like to analyzes the numbers, instead of strings.
 
 descriptions = df.groupby([&quot;item_name&quot;, &quot;choice_description&quot;])[&quot;order_id&quot;].count().reset_index(name=&quot;count&quot;)
 descriptions = descriptions[descriptions['item_name'].str.contains(&quot;Canned Soda&quot;)]  
@@ -54,9 +57,11 @@ descriptions.choice_description.value_counts().plot(kind=&quot;bar&quot;)
 plt.show()
 
 
-On average, it looks like people tend to spend 18.81 dollars per order. The minimum is 10.08 dollars per order and the maximum is 205 dollars per order. It is interesting to see that there is a person who orders 205 dollars worth of chipotle at one time. It looks like that person ordered catering or something.
+On average, it looks like people tend to spend 18.81 dollars per order. The minimum is 10.08 dollars per order and the maximum is 205 dollars per order. It is quite incredible to see that there are people who order 205 dollars worth of chipotle at a time. Maybe that person is catering a party or some other sort or large gathering.
 
-It was fun to explore the data and find a trend in them. I am planning to post more like this in the future. If you have any questions, feedback, advice or corrections please get in touch with me on Linkedin or email me at sunghokim@wustl.edu I referred to this blog http://www.danielforsyth.me/pandas-burritos-analyzing-chipotle-order-data-2/ to write this post.
+
+
+It was fun exploring the data and finding a trend. I am planning to post more like this in the future. If you have any questions, feedback, advice or corrections please get in touch with me on Linkedin or email me atsunghokim@wustl.edu. I referred to this blog to write this post.
 
 </description>
         <pubDate>Sun, 20 Aug 2017 00:00:00 -0400</pubDate>
@@ -119,90 +124,62 @@ print(most_similar_to_lebron )
     
       <item>
         <title>Mapping NYC Motor Vehicle Collisions Data</title>
-        <description>Everyday when I walk around NYC, I see a lot of traffics and sometimes car accidents on the street. This made me wonder if there are certain spots where the car accidents happen more frequently than others. If there are patterns, I thought it would be interesting to visualize and show them on the map. To solve my curiosity, I organized the procedures as following.
+        <description>
+
+Everyday when I walk around NYC, I see a lot of traffic and sometimes car accidents on the street. This made me wonder if there are certain spots where car accidents happen more frequently than others. If there are patterns, I thought it would be fun to visualize and show them on the map. To solve my curiosity, I organized the procedures as following.
 
 
   Find the dataset
   Clean the dataset for mapping
-  Visualize the dataset on Google map
+  Visualize the dataset on Google map.
 
 
+Finding the dataset
+As always, choosing the right dataset is the hardest problem in the data
+analysis process. However, I was able to find the dataset called “NYPD Motor Vehicle Collisions” from NYC Open Data website. It provides open data for people to use and explore for free. It not only provides city government or transportation data, but also education, business and more. So if you are interested what is happening around the town, I highly recommend you to take a look at the data and explore.
 
- 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33import gmplot 
+Cleaning the dataset 
+The dataset has more than 10 columns and one million rows. If I mapped all million locations, the map would look like a Yayoi Kusama’s art work rather than a map. So I decided to reduce my dataset and focus on accidents that occurred in the last 3 months.
+
+First, drop all the rows that have “NA” Second, select the columns that are needed for mapping (“LATIUDE” &amp;amp; “LONGTITUDE”) Third, make new column called “coordinate” that represents the spot. Finally, make another column called “frequency” which represents the frequency of coordinate.
+
+import gmplot 
 import datetime
 import pandas as pd
 import matplotlib.pyplot as plt  
 
 
-gmap = gmplot.GoogleMapPlotter(40.712784,-74.005941, 12)
-df = pd.read_csv(&amp;quot;2017.csv&amp;quot;)
+df = pd.read_csv(&quot;2017.csv&quot;)
 df = df.dropna(axis=0)
 
-df[&amp;quot;LATITUDE&amp;quot;] = df[&amp;quot;LATITUDE&amp;quot;].astype(float)
-df[&amp;quot;LONGITUDE&amp;quot;] = df[&amp;quot;LONGITUDE&amp;quot;].astype(float)
-df = df[[&amp;quot;LATITUDE&amp;quot;,&amp;quot;LONGITUDE&amp;quot;]]
-df.columns =[&amp;quot;lat&amp;quot;,&amp;quot;long&amp;quot;]
+df[&quot;LATITUDE&quot;] = df[&quot;LATITUDE&quot;].astype(float)
+df[&quot;LONGITUDE&quot;] = df[&quot;LONGITUDE&quot;].astype(float)
+df = df[[&quot;LATITUDE&quot;,&quot;LONGITUDE&quot;]]
+df.columns =[&quot;lat&quot;,&quot;long&quot;]
+
+df[&quot;coordinate&quot;] = list(zip(df.lat, df.long))
+df['freq'] = df.groupby('coordinate')['coordinate'].transform('count')
 
 
-df[&amp;quot;coordinate&amp;quot;] = list(zip(df.lat, df.long))
-df[&amp;#39;freq&amp;#39;] = df.groupby(&amp;#39;coordinate&amp;#39;)[&amp;#39;coordinate&amp;#39;].transform(&amp;#39;count&amp;#39;)
+3.Visaulization 
+I chose the color of the scatter spot by its frequency in the dataset.
+Yellow (1~3), Green (4~9), Orange(10~17), Red (18~)
 
-mapping = df[[&amp;quot;lat&amp;quot;,&amp;quot;long&amp;quot;,&amp;quot;freq&amp;quot;]]
+mapping = df[[&quot;lat&quot;,&quot;long&quot;,&quot;freq&quot;]]
+
+yellow = mapping[mapping[&quot;freq&quot;]&amp;lt;=3] 
+green  = mapping[(mapping[&quot;freq&quot;]&amp;gt;3) &amp;amp; (mapping[&quot;freq&quot;]&amp;lt;10)]
+orange = mapping[(mapping[&quot;freq&quot;]&amp;lt;18) &amp;amp; (mapping[&quot;freq&quot;]&amp;gt;=10)]
+red    = mapping[mapping[&quot;freq&quot;]&amp;gt;17] 
+
+gmap = gmplot.GoogleMapPlotter(&quot;Latitude&quot;,&quot;Longitude&quot;, 12)
+gmap.scatter(yellow.lat,yellow.long, &quot;yellow&quot; , size=15, marker=False)  
+gmap.scatter(green.lat,green.long, &quot;green&quot; , size=20, marker=False)  
+gmap.scatter(orange.lat,orange.long, &quot;orange&quot; , size=25, marker=False)  
+gmap.scatter(red.lat,red.long, &quot;red&quot; , size=25, marker=False)
 
 
-yellow = mapping[mapping[&amp;quot;freq&amp;quot;]&amp;lt;=3] 
-green  = mapping[(mapping[&amp;quot;freq&amp;quot;]&amp;gt;3) &amp;amp; (mapping[&amp;quot;freq&amp;quot;]&amp;lt;10)]
-orange = mapping[(mapping[&amp;quot;freq&amp;quot;]&amp;lt;18) &amp;amp; (mapping[&amp;quot;freq&amp;quot;]&amp;gt;=10)]
-red    = mapping[mapping[&amp;quot;freq&amp;quot;]&amp;gt;17] 
-
-
-gmap.scatter(yellow.lat,yellow.long, &amp;quot;yellow&amp;quot; , size=15, marker=False)  
-gmap.scatter(green.lat,green.long, &amp;quot;green&amp;quot; , size=20, marker=False)  
-gmap.scatter(orange.lat,orange.long, &amp;quot;orange&amp;quot; , size=25, marker=False)  
-gmap.scatter(red.lat,red.long, &amp;quot;red&amp;quot; , size=25, marker=False)  
-gmap.draw(&amp;quot;colorful2.html&amp;quot;)
-
-
-Finding the dataset
-As always, choosing the right dataset is hardest problem in data analysis process. However, I was able to find the dataset called “NYPD Motor Vehicle Collisions” from NYC Open Data website. It provides open data for people to use and explore for free. It not only provides city government or transportation data, but also education, business and more. So if you are interested what is happening around the town, I highly recommend you to take a look at the data and explore.
-
-Cleaning the dataset 
-The dataset has more than 10 columns and one million rows. If I mapped all the million locations on the map, the map would look like a Yayoi Kusama’s art work rather than a map. So I decided to reduce my dataset and focus on accidents that happened in recent 3 months.
-
-First, drop all the rows that have “NA” Second, select the columns that are needed for mapping (“LATIUDE” &amp;amp; “LONGTITUDE”) Third, make new column called “coordinate” that represents the spot. Finally, make another column called “frequency” which represents the frequency of coordinate.
-
+I hope you enjoyed this post, and please let me know if you have any questions, or feedback. You can reach me on Linkedin or email me at sunghokim@wustl.edu.
 </description>
         <pubDate>Sat, 05 Aug 2017 00:00:00 -0400</pubDate>
         <link>http://localhost:4000/2017/08/05/nyc_taxi/</link>

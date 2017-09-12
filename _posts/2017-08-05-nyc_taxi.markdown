@@ -6,88 +6,65 @@ author:     Sungho Kim
 subtitle:  	Preparing and Cleaning Data for Visualization
 <!-- category:  project1 -->
 ---
-Everyday when I walk around NYC, I see a lot of traffics and sometimes car accidents on the street. This made me wonder if there are certain spots where the car accidents happen more frequently than others. If there are patterns, I thought it would be interesting to visualize and show them on the map. To solve my curiosity, I organized the procedures as following. 
+
+
+![Description](/img/map_shot.png)
+
+
+Everyday when I walk around NYC, I see a lot of traffic and sometimes car accidents on the street. This made me wonder if there are certain spots where car accidents happen more frequently than others. If there are patterns, I thought it would be fun to visualize and show them on the map. To solve my curiosity, I organized the procedures as following. 
+
 
 1. Find the dataset 
 2. Clean the dataset for mapping
-3. Visualize the dataset on Google map
-
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%"> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">gmplot</span> 
-<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">datetime</span>
-<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">pandas</span> <span style="color: #008800; font-weight: bold">as</span> <span style="color: #0e84b5; font-weight: bold">pd</span>
-<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">matplotlib.pyplot</span> <span style="color: #008800; font-weight: bold">as</span> <span style="color: #0e84b5; font-weight: bold">plt</span>  
-
-
-gmap <span style="color: #333333">=</span> gmplot<span style="color: #333333">.</span>GoogleMapPlotter(<span style="color: #6600EE; font-weight: bold">40.712784</span>,<span style="color: #333333">-</span><span style="color: #6600EE; font-weight: bold">74.005941</span>, <span style="color: #0000DD; font-weight: bold">12</span>)
-df <span style="color: #333333">=</span> pd<span style="color: #333333">.</span>read_csv(<span style="background-color: #fff0f0">&quot;2017.csv&quot;</span>)
-df <span style="color: #333333">=</span> df<span style="color: #333333">.</span>dropna(axis<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">0</span>)
-
-df[<span style="background-color: #fff0f0">&quot;LATITUDE&quot;</span>] <span style="color: #333333">=</span> df[<span style="background-color: #fff0f0">&quot;LATITUDE&quot;</span>]<span style="color: #333333">.</span>astype(<span style="color: #007020">float</span>)
-df[<span style="background-color: #fff0f0">&quot;LONGITUDE&quot;</span>] <span style="color: #333333">=</span> df[<span style="background-color: #fff0f0">&quot;LONGITUDE&quot;</span>]<span style="color: #333333">.</span>astype(<span style="color: #007020">float</span>)
-df <span style="color: #333333">=</span> df[[<span style="background-color: #fff0f0">&quot;LATITUDE&quot;</span>,<span style="background-color: #fff0f0">&quot;LONGITUDE&quot;</span>]]
-df<span style="color: #333333">.</span>columns <span style="color: #333333">=</span>[<span style="background-color: #fff0f0">&quot;lat&quot;</span>,<span style="background-color: #fff0f0">&quot;long&quot;</span>]
-
-
-df[<span style="background-color: #fff0f0">&quot;coordinate&quot;</span>] <span style="color: #333333">=</span> <span style="color: #007020">list</span>(<span style="color: #007020">zip</span>(df<span style="color: #333333">.</span>lat, df<span style="color: #333333">.</span>long))
-df[<span style="background-color: #fff0f0">&#39;freq&#39;</span>] <span style="color: #333333">=</span> df<span style="color: #333333">.</span>groupby(<span style="background-color: #fff0f0">&#39;coordinate&#39;</span>)[<span style="background-color: #fff0f0">&#39;coordinate&#39;</span>]<span style="color: #333333">.</span>transform(<span style="background-color: #fff0f0">&#39;count&#39;</span>)
-
-mapping <span style="color: #333333">=</span> df[[<span style="background-color: #fff0f0">&quot;lat&quot;</span>,<span style="background-color: #fff0f0">&quot;long&quot;</span>,<span style="background-color: #fff0f0">&quot;freq&quot;</span>]]
-
-
-yellow <span style="color: #333333">=</span> mapping[mapping[<span style="background-color: #fff0f0">&quot;freq&quot;</span>]<span style="color: #333333">&lt;=</span><span style="color: #0000DD; font-weight: bold">3</span>] 
-green  <span style="color: #333333">=</span> mapping[(mapping[<span style="background-color: #fff0f0">&quot;freq&quot;</span>]<span style="color: #333333">&gt;</span><span style="color: #0000DD; font-weight: bold">3</span>) <span style="color: #333333">&amp;</span> (mapping[<span style="background-color: #fff0f0">&quot;freq&quot;</span>]<span style="color: #333333">&lt;</span><span style="color: #0000DD; font-weight: bold">10</span>)]
-orange <span style="color: #333333">=</span> mapping[(mapping[<span style="background-color: #fff0f0">&quot;freq&quot;</span>]<span style="color: #333333">&lt;</span><span style="color: #0000DD; font-weight: bold">18</span>) <span style="color: #333333">&amp;</span> (mapping[<span style="background-color: #fff0f0">&quot;freq&quot;</span>]<span style="color: #333333">&gt;=</span><span style="color: #0000DD; font-weight: bold">10</span>)]
-red    <span style="color: #333333">=</span> mapping[mapping[<span style="background-color: #fff0f0">&quot;freq&quot;</span>]<span style="color: #333333">&gt;</span><span style="color: #0000DD; font-weight: bold">17</span>] 
-
-
-gmap<span style="color: #333333">.</span>scatter(yellow<span style="color: #333333">.</span>lat,yellow<span style="color: #333333">.</span>long, <span style="background-color: #fff0f0">&quot;yellow&quot;</span> , size<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">15</span>, marker<span style="color: #333333">=</span><span style="color: #008800; font-weight: bold">False</span>)  
-gmap<span style="color: #333333">.</span>scatter(green<span style="color: #333333">.</span>lat,green<span style="color: #333333">.</span>long, <span style="background-color: #fff0f0">&quot;green&quot;</span> , size<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">20</span>, marker<span style="color: #333333">=</span><span style="color: #008800; font-weight: bold">False</span>)  
-gmap<span style="color: #333333">.</span>scatter(orange<span style="color: #333333">.</span>lat,orange<span style="color: #333333">.</span>long, <span style="background-color: #fff0f0">&quot;orange&quot;</span> , size<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">25</span>, marker<span style="color: #333333">=</span><span style="color: #008800; font-weight: bold">False</span>)  
-gmap<span style="color: #333333">.</span>scatter(red<span style="color: #333333">.</span>lat,red<span style="color: #333333">.</span>long, <span style="background-color: #fff0f0">&quot;red&quot;</span> , size<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">25</span>, marker<span style="color: #333333">=</span><span style="color: #008800; font-weight: bold">False</span>)  
-gmap<span style="color: #333333">.</span>draw(<span style="background-color: #fff0f0">&quot;colorful2.html&quot;</span>)
-</pre></td></tr></table></div>
-
+3. Visualize the dataset on Google map.
 
 
 
 Finding the dataset
-As always, choosing the right dataset is hardest problem in data analysis process. However, I was able to find the dataset called “NYPD Motor Vehicle Collisions” from NYC Open Data website. It provides open data for people to use and explore for free. It not only provides city government or transportation data, but also education, business and more. So if you are interested what is happening around the town, I highly recommend you to take a look at the data and explore. 
+As always, choosing the right dataset is the hardest problem in the data
+analysis process. However, I was able to find the dataset called “NYPD Motor Vehicle Collisions” from [NYC Open Data website](https://opendata.cityofnewyork.us/). It provides open data for people to use and explore for free. It not only provides city government or transportation data, but also education, business and more. So if you are interested what is happening around the town, I highly recommend you to take a look at the data and explore. 
 
 Cleaning the dataset 
-The dataset has more than 10 columns and one million rows. If I mapped all the million locations on the map, the map would look like a Yayoi Kusama’s art work rather than a map. So I decided to reduce my dataset and focus on accidents that happened in recent 3 months.
+The dataset has more than 10 columns and one million rows. If I mapped all million locations, the map would look like a [Yayoi Kusama’s art work](http://payload526.cargocollective.com/1/1/60195/12836514/obiliteration-room.jpg) rather than a map. So I decided to reduce my dataset and focus on accidents that occurred in the last 3 months.
 
 First, drop all the rows that have “NA” Second, select the columns that are needed for mapping (“LATIUDE” & “LONGTITUDE”) Third, make new column called “coordinate” that represents the spot. Finally, make another column called “frequency” which represents the frequency of coordinate. 
 
+<pre style='color:#d1d1d1;background:#000000;'><span style='color:#e66170; font-weight:bold; '>import</span> gmplot 
+<span style='color:#e66170; font-weight:bold; '>import</span> datetime
+<span style='color:#e66170; font-weight:bold; '>import</span> pandas <span style='color:#e66170; font-weight:bold; '>as</span> pd
+<span style='color:#e66170; font-weight:bold; '>import</span> matplotlib<span style='color:#d2cd86; '>.</span>pyplot <span style='color:#e66170; font-weight:bold; '>as</span> plt  
 
+
+df <span style='color:#d2cd86; '>=</span> pd<span style='color:#d2cd86; '>.</span>read_csv<span style='color:#d2cd86; '>(</span><span style='color:#00c4c4; '>"2017.csv"</span><span style='color:#d2cd86; '>)</span>
+df <span style='color:#d2cd86; '>=</span> df<span style='color:#d2cd86; '>.</span>dropna<span style='color:#d2cd86; '>(</span>axis<span style='color:#d2cd86; '>=</span><span style='color:#00a800; '>0</span><span style='color:#d2cd86; '>)</span>
+
+df<span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>"LATITUDE"</span><span style='color:#d2cd86; '>]</span> <span style='color:#d2cd86; '>=</span> df<span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>"LATITUDE"</span><span style='color:#d2cd86; '>]</span><span style='color:#d2cd86; '>.</span>astype<span style='color:#d2cd86; '>(</span><span style='color:#e66170; font-weight:bold; '>float</span><span style='color:#d2cd86; '>)</span>
+df<span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>"LONGITUDE"</span><span style='color:#d2cd86; '>]</span> <span style='color:#d2cd86; '>=</span> df<span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>"LONGITUDE"</span><span style='color:#d2cd86; '>]</span><span style='color:#d2cd86; '>.</span>astype<span style='color:#d2cd86; '>(</span><span style='color:#e66170; font-weight:bold; '>float</span><span style='color:#d2cd86; '>)</span>
+df <span style='color:#d2cd86; '>=</span> df<span style='color:#d2cd86; '>[</span><span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>"LATITUDE"</span><span style='color:#d2cd86; '>,</span><span style='color:#00c4c4; '>"LONGITUDE"</span><span style='color:#d2cd86; '>]</span><span style='color:#d2cd86; '>]</span>
+df<span style='color:#d2cd86; '>.</span>columns <span style='color:#d2cd86; '>=</span><span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>"lat"</span><span style='color:#d2cd86; '>,</span><span style='color:#00c4c4; '>"long"</span><span style='color:#d2cd86; '>]</span>
+
+df<span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>"coordinate"</span><span style='color:#d2cd86; '>]</span> <span style='color:#d2cd86; '>=</span> <span style='color:#e66170; font-weight:bold; '>list</span><span style='color:#d2cd86; '>(</span><span style='color:#e66170; font-weight:bold; '>zip</span><span style='color:#d2cd86; '>(</span>df<span style='color:#d2cd86; '>.</span>lat<span style='color:#d2cd86; '>,</span> df<span style='color:#d2cd86; '>.</span><span style='color:#e66170; font-weight:bold; '>long</span><span style='color:#d2cd86; '>)</span><span style='color:#d2cd86; '>)</span>
+df<span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>'freq'</span><span style='color:#d2cd86; '>]</span> <span style='color:#d2cd86; '>=</span> df<span style='color:#d2cd86; '>.</span>groupby<span style='color:#d2cd86; '>(</span><span style='color:#00c4c4; '>'coordinate'</span><span style='color:#d2cd86; '>)</span><span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>'coordinate'</span><span style='color:#d2cd86; '>]</span><span style='color:#d2cd86; '>.</span>transform<span style='color:#d2cd86; '>(</span><span style='color:#00c4c4; '>'count'</span><span style='color:#d2cd86; '>)</span>
+</pre>
+
+3.Visaulization 
+I chose the color of the scatter spot by its frequency in the dataset.
+Yellow (1~3), Green (4~9), Orange(10~17), Red (18~)
+
+<pre style='color:#d1d1d1;background:#000000;'>mapping <span style='color:#d2cd86; '>=</span> df<span style='color:#d2cd86; '>[</span><span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>"lat"</span><span style='color:#d2cd86; '>,</span><span style='color:#00c4c4; '>"long"</span><span style='color:#d2cd86; '>,</span><span style='color:#00c4c4; '>"freq"</span><span style='color:#d2cd86; '>]</span><span style='color:#d2cd86; '>]</span>
+
+yellow <span style='color:#d2cd86; '>=</span> mapping<span style='color:#d2cd86; '>[</span>mapping<span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>"freq"</span><span style='color:#d2cd86; '>]</span><span style='color:#00dddd; '>&lt;=</span><span style='color:#00a800; '>3</span><span style='color:#d2cd86; '>]</span> 
+green  <span style='color:#d2cd86; '>=</span> mapping<span style='color:#d2cd86; '>[</span><span style='color:#d2cd86; '>(</span>mapping<span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>"freq"</span><span style='color:#d2cd86; '>]</span><span style='color:#00dddd; '>></span><span style='color:#00a800; '>3</span><span style='color:#d2cd86; '>)</span> <span style='color:#00dddd; '>&amp;</span> <span style='color:#d2cd86; '>(</span>mapping<span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>"freq"</span><span style='color:#d2cd86; '>]</span><span style='color:#00dddd; '>&lt;</span><span style='color:#00a800; '>10</span><span style='color:#d2cd86; '>)</span><span style='color:#d2cd86; '>]</span>
+orange <span style='color:#d2cd86; '>=</span> mapping<span style='color:#d2cd86; '>[</span><span style='color:#d2cd86; '>(</span>mapping<span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>"freq"</span><span style='color:#d2cd86; '>]</span><span style='color:#00dddd; '>&lt;</span><span style='color:#00a800; '>18</span><span style='color:#d2cd86; '>)</span> <span style='color:#00dddd; '>&amp;</span> <span style='color:#d2cd86; '>(</span>mapping<span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>"freq"</span><span style='color:#d2cd86; '>]</span><span style='color:#00dddd; '>>=</span><span style='color:#00a800; '>10</span><span style='color:#d2cd86; '>)</span><span style='color:#d2cd86; '>]</span>
+red    <span style='color:#d2cd86; '>=</span> mapping<span style='color:#d2cd86; '>[</span>mapping<span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>"freq"</span><span style='color:#d2cd86; '>]</span><span style='color:#00dddd; '>></span><span style='color:#00a800; '>17</span><span style='color:#d2cd86; '>]</span> 
+
+gmap <span style='color:#d2cd86; '>=</span> gmplot<span style='color:#d2cd86; '>.</span>GoogleMapPlotter<span style='color:#d2cd86; '>(</span><span style='color:#00c4c4; '>"Latitude"</span><span style='color:#d2cd86; '>,</span><span style='color:#00c4c4; '>"Longitude"</span><span style='color:#d2cd86; '>,</span> <span style='color:#00a800; '>12</span><span style='color:#d2cd86; '>)</span>
+gmap<span style='color:#d2cd86; '>.</span>scatter<span style='color:#d2cd86; '>(</span>yellow<span style='color:#d2cd86; '>.</span>lat<span style='color:#d2cd86; '>,</span>yellow<span style='color:#d2cd86; '>.</span><span style='color:#e66170; font-weight:bold; '>long</span><span style='color:#d2cd86; '>,</span> <span style='color:#00c4c4; '>"yellow"</span> <span style='color:#d2cd86; '>,</span> size<span style='color:#d2cd86; '>=</span><span style='color:#00a800; '>15</span><span style='color:#d2cd86; '>,</span> marker<span style='color:#d2cd86; '>=</span>False<span style='color:#d2cd86; '>)</span>  
+gmap<span style='color:#d2cd86; '>.</span>scatter<span style='color:#d2cd86; '>(</span>green<span style='color:#d2cd86; '>.</span>lat<span style='color:#d2cd86; '>,</span>green<span style='color:#d2cd86; '>.</span><span style='color:#e66170; font-weight:bold; '>long</span><span style='color:#d2cd86; '>,</span> <span style='color:#00c4c4; '>"green"</span> <span style='color:#d2cd86; '>,</span> size<span style='color:#d2cd86; '>=</span><span style='color:#00a800; '>20</span><span style='color:#d2cd86; '>,</span> marker<span style='color:#d2cd86; '>=</span>False<span style='color:#d2cd86; '>)</span>  
+gmap<span style='color:#d2cd86; '>.</span>scatter<span style='color:#d2cd86; '>(</span>orange<span style='color:#d2cd86; '>.</span>lat<span style='color:#d2cd86; '>,</span>orange<span style='color:#d2cd86; '>.</span><span style='color:#e66170; font-weight:bold; '>long</span><span style='color:#d2cd86; '>,</span> <span style='color:#00c4c4; '>"orange"</span> <span style='color:#d2cd86; '>,</span> size<span style='color:#d2cd86; '>=</span><span style='color:#00a800; '>25</span><span style='color:#d2cd86; '>,</span> marker<span style='color:#d2cd86; '>=</span>False<span style='color:#d2cd86; '>)</span>  
+gmap<span style='color:#d2cd86; '>.</span>scatter<span style='color:#d2cd86; '>(</span>red<span style='color:#d2cd86; '>.</span>lat<span style='color:#d2cd86; '>,</span>red<span style='color:#d2cd86; '>.</span><span style='color:#e66170; font-weight:bold; '>long</span><span style='color:#d2cd86; '>,</span> <span style='color:#00c4c4; '>"red"</span> <span style='color:#d2cd86; '>,</span> size<span style='color:#d2cd86; '>=</span><span style='color:#00a800; '>25</span><span style='color:#d2cd86; '>,</span> marker<span style='color:#d2cd86; '>=</span>False<span style='color:#d2cd86; '>)</span>
+</pre>
+
+
+
+I hope you enjoyed this post, and please let me know if you have any questions, or feedback. You can reach me on [Linkedin](https://www.linkedin.com/in/sunghok/) or email me at <a href="mailto:sunghokim@wustl.edu?Subject=Hello%20again" target="_top">sunghokim@wustl.edu</a>.
