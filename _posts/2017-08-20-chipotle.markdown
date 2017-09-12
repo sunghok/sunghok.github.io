@@ -67,7 +67,7 @@ On average, it looks like people tend to spend 18.81 dollars per order. The mini
 ![Description](/img/chip3.png)
 
 
-It was fun exploring the data and finding a trend. I am planning to post more like this in the future. If you have any questions, feedback, advice or corrections please get in touch with me on [Linkedin](https://www.linkedin.com/in/sunghok/) or email me at<a href="mailto:sunghokim@wustl.edu?Subject=Hello%20again" target="_top">sunghokim@wustl.edu</a>. I referred to this [blog](http://www.danielforsyth.me/pandas-burritos-analyzing-chipotle-order-data-2/) to write this post. 
+It was fun exploring the data and finding a trend. I am planning to post more like this in the future. If you have any questions, feedback, advice or corrections please get in touch with me on [Linkedin](https://www.linkedin.com/in/sunghok/) or email me at <a href="mailto:sunghokim@wustl.edu?Subject=Hello%20again" target="_top">sunghokim@wustl.edu</a>. I referred to this [blog](http://www.danielforsyth.me/pandas-burritos-analyzing-chipotle-order-data-2/) to write this post. 
 
 
 
