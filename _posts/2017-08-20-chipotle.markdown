@@ -27,7 +27,7 @@ plt<span style='color:#d2cd86; '>.</span>show<span style='color:#d2cd86; '>(</sp
 </pre>
 
 
-![Description](/img/chip1.png)
+![Description](/img/post/chip1.png)
 
 
 It seems like the most popular item is the "Chicken Bowl" and the least ordered items are the "Carnitas Salad" and the "Veggie Crispy Tacos". Besides the “Chicken Bowl”, I am curious as to what other items are most ordered. Let’s zoom in on the graph a little bit closer and see what those are. To do this, type the following command.
@@ -36,7 +36,7 @@ It seems like the most popular item is the "Chicken Bowl" and the least ordered 
 plt<span style='color:#d2cd86; '>.</span>show<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span>
 </pre>
 
-![Description](/img/top10.png)
+![Description](/img/post/top10.png)
 
 Now you can see the name of the items more clearly than before. If you look at the graph, it is interesting to see that two items (Canned Soda, bottled water) from the top 10 are beverages. Let’s look at what kind of canned soda people ordered the most.  It is interesting to see that Mountain Dew and Dr.Pepper ranked second and third respectively. 
 
@@ -47,7 +47,7 @@ orders <span style='color:#d2cd86; '>=</span> df<span style='color:#d2cd86; '>.<
 <span style='color:#e66170; font-weight:bold; '>print</span><span style='color:#d2cd86; '>(</span>orders<span style='color:#d2cd86; '>.</span>head<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span><span style='color:#d2cd86; '>)</span>
 </pre>
 
-![Description](/img/chip2.png)
+![Description](/img/post/chip2.png)
 
 It was intriguing to explore the items that are most ordered by customers at Chipolte. Now, let's try to look at the data from a business perspective and explore the data of price per order. First, you have to replace “$” with “” and change the data type to “float” in “item_price column”, because we would like to analyzes the numbers, instead of strings. 
 
@@ -64,7 +64,7 @@ plt<span style='color:#d2cd86; '>.</span>show<span style='color:#d2cd86; '>(</sp
 On average, it looks like people tend to spend 18.81 dollars per order. The minimum is 10.08 dollars per order and the maximum is 205 dollars per order. It is quite incredible to see that there are people who order 205 dollars worth of chipotle at a time. Maybe that person is catering a party or some other sort or large gathering.
 
 
-![Description](/img/chip3.png)
+![Description](/img/post/chip3.png)
 
 
 It was fun exploring the data and finding a trend. I am planning to post more like this in the future. If you have any questions, feedback, advice or corrections please get in touch with me on [Linkedin](https://www.linkedin.com/in/sunghok/) or email me at <a href="mailto:sunghokim@wustl.edu?Subject=Hello%20again" target="_top">sunghokim@wustl.edu</a>. I referred to this [blog](http://www.danielforsyth.me/pandas-burritos-analyzing-chipotle-order-data-2/) to write this post. 

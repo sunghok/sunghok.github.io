@@ -6,13 +6,18 @@ callback([
   } ,
 
   {
-    "text": "Clustering NBA Players",
-    "href": "http://localhost:4000/2017/08/15/nba_knn/"
+    "text": "Exploring Chipotle Order Data",
+    "href": "http://localhost:4000/2017/08/20/chipotle/"
   } ,
 
   {
-    "text": "Exploring Chipotle Order Data",
-    "href": "http://localhost:4000/2017/08/20/chipotle/"
+    "text": "Who should FC Barcelona buy ?",
+    "href": "http://localhost:4000/2017/09/01/neymar/"
+  } ,
+
+  {
+    "text": "Spotify",
+    "href": "http://localhost:4000/2017/09/05/spotify/"
   } 
 
 ])

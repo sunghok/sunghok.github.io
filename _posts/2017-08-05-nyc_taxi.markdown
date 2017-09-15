@@ -8,7 +8,7 @@ subtitle:  	Preparing and Cleaning Data for Visualization
 ---
 
 
-![Description](/img/map_shot.png)
+![Description](/img/post/map_shot.png)
 
 
 Everyday when I walk around NYC, I see a lot of traffic and sometimes car accidents on the street. This made me wonder if there are certain spots where car accidents happen more frequently than others. If there are patterns, I thought it would be fun to visualize and show them on the map. To solve my curiosity, I organized the procedures as following. 

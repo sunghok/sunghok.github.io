@@ -7,9 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Data Science Portfolio">
-	<meta property="og:title" content="Clustering NBA Players" />
+	<meta property="og:title" content="Who should FC Barcelona buy ?" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="http://localhost:4000///2017/08/15/nba_knn/" />
+<meta property="og:url" content="http://localhost:4000///2017/09/01/neymar/" />
 <meta property="og:image" content="http://localhost:4000//img/home-bg.jpg">
 	
 	
@@ -30,9 +30,9 @@
 	
 	<link rel='shortcut icon' type='image/png' href='/favi.png' />
 
-    <title>Clustering NBA Players - SUNGHO KIM</title>
+    <title>Who should FC Barcelona buy ? - SUNGHO KIM</title>
 
-    <link rel="canonical" href="http://localhost:4000/2017/08/15/nba_knn/">
+    <link rel="canonical" href="http://localhost:4000/2017/09/01/neymar/">
 	
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="http://localhost:4000/css/bootstrap.min.css">
@@ -141,11 +141,11 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading" style="padding: 30px 0">
-                    <h1>Clustering NBA Players</h1>
+                    <h1>Who should FC Barcelona buy ?</h1>
 <!--                     
-                    <h2 class="subheading">K nearest neighbors (KNN) in python</h2>
+                    <h2 class="subheading">Using K-nearest neighbors (KNN) to find a simliar player to Neymar</h2>
                     
-                    <span class="meta">Posted by Sungho Kim on August 15, 2017</span>	 -->
+                    <span class="meta">Posted by Sungho Kim on September 1, 2017</span>	 -->
                 </div>
             </div>
         </div>
@@ -159,40 +159,6 @@
 
 	
 	
-	
-	<div class="float-left">
-	<div class="recentpost" style="padding: 10px">
-	
-	<h4> Recently by the same author: </h4> 
-	
-	<hr class="style-one">
-	
-	<a href="/2017/08/20/chipotle/"><h2 class="post-title"> Exploring Chipotle Order Data</h2></a>
-	
-	
-		<h4 class="post-subtitle">Using python to analyze the order data from Grubhub</h4>
-	
-	
-	<p class="post-meta" style="margin-top: 5px;margin-bottom:5px; font-size: 0.8em">Posted by Sungho Kim on August 20, 2017</p>
-	
-	<div class="notepad-index-post-tags" style="">
-	
-	</div> 
-	
-			
-
-
-
-
-
-
-	
-	</div>
-	</div>
-	
-	
-	
-	
 		
 	
 
@@ -201,9 +167,17 @@
 
 
 	
+	 
+	
 	
 	
 
+	
+	
+	
+
+	
+	 
 	
 	
 	
@@ -272,47 +246,36 @@ img:active{
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-				<p>In this post, we’ll be using the K-nearest neighbors algorithm and euclidean distance to figure out figure out which NBA players are the most similar to Lebron James. I foudn out that Kemba Walker is the most simlar player to Lebron James according to the NBA data from 16-17 season.</p>
+				<p><img src="/img/post/neymar.png" alt="Description" /></p>
 
-<!-- HTML generated using hilite.me -->
-<div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">pandas</span> <span style="color: #008800; font-weight: bold">as</span> <span style="color: #0e84b5; font-weight: bold">pd</span>
-<span style="color: #008800; font-weight: bold">import</span> <span style="color: #0e84b5; font-weight: bold">math</span>
+<p>Over this summer, there was a record-breaking deal in the soccer transfer market. Paris Saint-Germain triggered Neymar ’s release clause and paid €222 million to FC Barcelona. Last year, Paul Pogba’s deal from Juventus to Manchester United was a record-breaking, and the amount was €222. The transfer values just have increased exponentially.</p>
 
-nba <span style="color: #333333">=</span> pd<span style="color: #333333">.</span>read_csv(<span style="background-color: #fff0f0">&quot;nba17.csv&quot;</span>)
+<p>In this post, I am not going to talk about if the value of Neymar is worth it or not, but how FC Barcelona should invest money from Neymar’s fee in finding his successor. I am going to use the K-nearest neighbors(KNN) algorithm to find out which soccer players who have capabilities to replace “Neymar” based on the player’s stats from last season (2016-2017 season). I did not include Cristiano Ronaldo or other real madrid players in the datset, because there is a huge rivalry between Real Madrid and FC Barcelona that players from Real Madrid would move to FC Barcelona.</p>
 
-<span style="color: #888888"># Lebron James</span>
+<p>First, normalize the dataset, then find the Euclidian distance between Neymar(target) and the other players. Since we are looking for a player that is most similar to Neymar, we should find the second most similar to Neymar. The distance between Neymar to Neymar is 0.</p>
 
-<span style="color: #888888"># Select only the numeric columns from the NBA dataset</span>
-nba_numeric <span style="color: #333333">=</span> nba[distance_columns]
-<span style="color: #888888"># Normalize all of the numeric columns</span>
-nba_normalized <span style="color: #333333">=</span> (nba_numeric <span style="color: #333333">-</span> nba_numeric<span style="color: #333333">.</span>mean()) <span style="color: #333333">/</span> nba_numeric<span style="color: #333333">.</span>std()
+<pre style="color:#d1d1d1;background:#000000;"><span style="color:#e66170; font-weight:bold; ">import</span> pandas <span style="color:#e66170; font-weight:bold; ">as</span> pd
+<span style="color:#e66170; font-weight:bold; ">import</span> math
 
+soccer <span style="color:#d2cd86; ">=</span> pd<span style="color:#d2cd86; ">.</span>read_csv<span style="color:#d2cd86; ">(</span><span style="color:#00c4c4; ">"2016.csv"</span><span style="color:#d2cd86; ">)</span>
+selected_player <span style="color:#d2cd86; ">=</span> soccer<span style="color:#d2cd86; ">[</span>soccer<span style="color:#d2cd86; ">[</span><span style="color:#00c4c4; ">"player"</span><span style="color:#d2cd86; ">]</span> <span style="color:#00dddd; ">==</span> <span style="color:#00c4c4; ">"Neymar"</span><span style="color:#d2cd86; ">]</span><span style="color:#d2cd86; ">.</span>iloc<span style="color:#d2cd86; ">[</span><span style="color:#00a800; ">0</span><span style="color:#d2cd86; ">]</span>
 
+soccer_numeric <span style="color:#d2cd86; ">=</span> soccer<span style="color:#d2cd86; ">[</span>distance_columns<span style="color:#d2cd86; ">]</span>
+soccer_normalized <span style="color:#d2cd86; ">=</span> <span style="color:#d2cd86; ">(</span>soccer_numeric <span style="color:#00dddd; ">-</span> soccer_numeric<span style="color:#d2cd86; ">.</span>mean<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span><span style="color:#d2cd86; ">)</span> <span style="color:#00dddd; ">/</span> soccer_numeric<span style="color:#d2cd86; ">.</span>std<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">)</span>
 
+<span style="color:#e66170; font-weight:bold; ">from</span> scipy<span style="color:#d2cd86; ">.</span>spatial <span style="color:#e66170; font-weight:bold; ">import</span> distance
+neymar_normalized <span style="color:#d2cd86; ">=</span> soccer_normalized<span style="color:#d2cd86; ">[</span>soccer<span style="color:#d2cd86; ">[</span><span style="color:#00c4c4; ">"player"</span><span style="color:#d2cd86; ">]</span> <span style="color:#00dddd; ">==</span> <span style="color:#00c4c4; ">"Neymar"</span><span style="color:#d2cd86; ">]</span>
+euclidean_distances <span style="color:#d2cd86; ">=</span> soccer_normalized<span style="color:#d2cd86; ">.</span>apply<span style="color:#d2cd86; ">(</span><span style="color:#e66170; font-weight:bold; ">lambda</span> row<span style="color:#d2cd86; ">:</span> distance<span style="color:#d2cd86; ">.</span>euclidean<span style="color:#d2cd86; ">(</span>row<span style="color:#d2cd86; ">,</span> neymar_normalized<span style="color:#d2cd86; ">)</span><span style="color:#d2cd86; ">,</span> axis<span style="color:#d2cd86; ">=</span><span style="color:#00a800; ">1</span><span style="color:#d2cd86; ">)</span>
 
-<span style="color: #008800; font-weight: bold">from</span> <span style="color: #0e84b5; font-weight: bold">scipy.spatial</span> <span style="color: #008800; font-weight: bold">import</span> distance
-<span style="color: #888888"># Fill in NA values in nba_normalized</span>
-nba_normalized<span style="color: #333333">.</span>fillna(<span style="color: #0000DD; font-weight: bold">0</span>, inplace<span style="color: #333333">=</span><span style="color: #008800; font-weight: bold">True</span>)
-<span style="color: #888888"># Find the normalized vector for lebron james.</span>
-lebron_normalized <span style="color: #333333">=</span> nba_normalized[nba[<span style="background-color: #fff0f0">&quot;player&quot;</span>] <span style="color: #333333">==</span> <span style="background-color: #fff0f0">&quot;Lebron James&quot;</span>]
+distance_frame <span style="color:#d2cd86; ">=</span> pd<span style="color:#d2cd86; ">.</span>DataFrame<span style="color:#d2cd86; ">(</span>data<span style="color:#d2cd86; ">=</span><span style="color:#b060b0; ">{</span><span style="color:#00c4c4; ">"dist"</span><span style="color:#d2cd86; ">:</span> euclidean_distances<span style="color:#d2cd86; ">,</span> <span style="color:#00c4c4; ">"idx"</span><span style="color:#d2cd86; ">:</span> euclidean_distances<span style="color:#d2cd86; ">.</span>index<span style="color:#b060b0; ">}</span><span style="color:#d2cd86; ">)</span>
+distance_frame <span style="color:#d2cd86; ">=</span> distance_frame<span style="color:#d2cd86; ">.</span>sort_values<span style="color:#d2cd86; ">(</span><span style="color:#d2cd86; ">[</span><span style="color:#00c4c4; ">"dist"</span><span style="color:#d2cd86; ">]</span><span style="color:#d2cd86; ">,</span> ascending<span style="color:#d2cd86; ">=</span>True<span style="color:#d2cd86; ">)</span>
 
+second_smallest <span style="color:#d2cd86; ">=</span> distance_frame<span style="color:#d2cd86; ">.</span>iloc<span style="color:#d2cd86; ">[</span><span style="color:#00a800; ">1</span><span style="color:#d2cd86; ">]</span><span style="color:#d2cd86; ">[</span><span style="color:#00c4c4; ">"idx"</span><span style="color:#d2cd86; ">]</span>
+most_similar_to_neymar <span style="color:#d2cd86; ">=</span> soccer<span style="color:#d2cd86; ">.</span>loc<span style="color:#d2cd86; ">[</span><span style="color:#e66170; font-weight:bold; ">int</span><span style="color:#d2cd86; ">(</span>second_smallest<span style="color:#d2cd86; ">)</span><span style="color:#d2cd86; ">]</span><span style="color:#d2cd86; ">[</span><span style="color:#00c4c4; ">"player"</span><span style="color:#d2cd86; ">]</span>
+<span style="color:#e66170; font-weight:bold; ">print</span><span style="color:#d2cd86; ">(</span>most_similar_to_neymar<span style="color:#d2cd86; ">)</span>
+</pre>
 
-<span style="color: #888888"># Find the distance between lebron james and everyone else.</span>
-euclidean_distances <span style="color: #333333">=</span> nba_normalized<span style="color: #333333">.</span>apply(<span style="color: #008800; font-weight: bold">lambda</span> row: distance<span style="color: #333333">.</span>euclidean(row, lebron_normalized), axis<span style="color: #333333">=</span><span style="color: #0000DD; font-weight: bold">1</span>)
-
-
-<span style="color: #888888"># Create a new dataframe with distances.</span>
-distance_frame <span style="color: #333333">=</span> pd<span style="color: #333333">.</span>DataFrame(data<span style="color: #333333">=</span>{<span style="background-color: #fff0f0">&quot;dist&quot;</span>: euclidean_distances, <span style="background-color: #fff0f0">&quot;idx&quot;</span>: euclidean_distances<span style="color: #333333">.</span>index})
-distance_frame <span style="color: #333333">=</span> distance_frame<span style="color: #333333">.</span>sort_values([<span style="background-color: #fff0f0">&quot;dist&quot;</span>], ascending<span style="color: #333333">=</span><span style="color: #008800; font-weight: bold">True</span>)
-
-<span style="color: #007020">print</span>(distance_frame)
-
-
-<span style="color: #888888"># Find the most similar player to lebron (the lowest distance to lebron is lebron, the second smallest is the most similar non-lebron player)</span>
-second_smallest <span style="color: #333333">=</span> distance_frame<span style="color: #333333">.</span>iloc[<span style="color: #0000DD; font-weight: bold">1</span>][<span style="background-color: #fff0f0">&quot;idx&quot;</span>]
-most_similar_to_lebron <span style="color: #333333">=</span> nba<span style="color: #333333">.</span>loc[<span style="color: #007020">int</span>(second_smallest)][<span style="background-color: #fff0f0">&quot;player&quot;</span>]
-<span style="color: #007020">print</span>(most_similar_to_lebron )
-</pre></div>
+<p>As a result of the analysis, it seems like Philippe Coutinho is most similar to Neymar. Angel Di Maria and Paulo Dybala are the second, third similar to Neymar respectively. According to the media, FC Barcelona actually had tried to buy Philippe Coutinho and Angel Di Maria before the transfer window closed. However, none of those deals happened, and FC Barcelona ended up signing Ousmane Dembele to replace Neymar.</p>
 
 
                 <hr>
@@ -320,12 +283,12 @@ most_similar_to_lebron <span style="color: #333333">=</span> nba<span style="col
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2017/08/05/nyc_taxi/" data-toggle="tooltip" data-placement="top" title="Mapping NYC Motor Vehicle Collisions Data">&larr; Previous Post</a>
+                        <a href="/2017/08/20/chipotle/" data-toggle="tooltip" data-placement="top" title="Exploring Chipotle Order Data">&larr; Previous Post</a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2017/08/20/chipotle/" data-toggle="tooltip" data-placement="top" title="Exploring Chipotle Order Data">Next Post &rarr;</a>
+                        <a href="/2017/09/05/spotify/" data-toggle="tooltip" data-placement="top" title="Spotify">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
