@@ -5,13 +5,186 @@
     <description>Data Science Portfolio</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 14 Sep 2017 22:03:00 -0400</pubDate>
-    <lastBuildDate>Thu, 14 Sep 2017 22:03:00 -0400</lastBuildDate>
+    <pubDate>Fri, 15 Sep 2017 22:49:23 -0400</pubDate>
+    <lastBuildDate>Fri, 15 Sep 2017 22:49:23 -0400</lastBuildDate>
     <generator>Jekyll v3.5.2</generator>
     
       <item>
-        <title>Spotify</title>
+        <title>Breast Cancer Prediction</title>
         <description>
+
+Machine Learning Algorithms can be applied in many different areas. Not just Netflix’s or Spotify’s movie recommender engines or financial markets, but also in the areas where have big and complicated data. Healthcare Industry is also where big data exist and have many problems to solve. Big companies like IBM(Watson) and Google(DeepMind) already have been used and developing and machine learning healthcare applications. There are also many young health care startups that use machine learning, such as Ayasdi, Nervanasys, Sentient.ai, and Reasoning Systems.
+
+Some current on going Machine Learning Healthcare Applications by the companies are Diagnosis in Medical Imaging, Drug discover, Robotic Surgery, Treatment Queries and Suggestions so on.
+
+In this post, I am going to use two of Machine Learning Classifiers (Random Forrest &amp;amp; SVM) to build a simple model that can predict whether the patient’s cancer is benign or malignant. And I am going to use the Breast Cancer Wisconsin(Diagnostic) dataset.
+
+Prepare Data
+Load the data first, and see what it looks like. As you can see it from the picture in the bottom, the datatype of target value that we want to predict “diagnosis” is not int. Since it is not number, change those two categorical values “Malignant” and “Benign” to “1” and “0” respectively. Then Drop any column with more than 50% missing values.
+data = pd.read_csv(&quot;breast_cancer.csv&quot;)
+print(data.head())
+print(data.info())
+data['diagnosis']=data['diagnosis'].map({'M':1,'B':0})  
+half_count = len(data) / 2
+data = data.dropna(thresh=half_count,axis=1)
+
+
+
+
+Next, I ran the following command to check the number of Malignant and Benign stage are in the datset. If you don’t want to plot them and just see the numbers, you can just type print(data[‘diagnosis’].value_counts()).
+sns.countplot(data['diagnosis'],label=&quot;Count&quot;)
+plt.show()
+
+
+
+Feature Selection
+Before you decide what features to use, it is always nice to visualize the correlation between your target and features. I decided to use the features that have correlation values from 0.55 to 1 with target(“diagnosis)”.
+
+data_corr = data.corr()
+data_corr['diagnosis'].sort_values(ascending=False)
+data_corr['diagnosis'].sort_values().plot(kind='bar',sort_columns=True)
+plt.show()
+
+
+
+If you want to include more features, it is up to you. After feature selection, I ran a command that visuazlzes the correlation between target and selected features.
+
+fig=plt.figure(figsize=(12,18))
+selected_features_corr = data[selected_features].corr()
+sns.heatmap(selected_features_corr, cbar = True,  square = True, annot=True, fmt= '.2f',annot_kws={'size': 8},
+           xticklabels= selected_features, yticklabels= selected_features, cmap= 'coolwarm')
+
+
+
+Split Data
+Y_data = data['diagnosis']
+X_data = data[selected_features].iloc[:,1:]
+#print(X_data.columns.values)
+X_train,X_test,Y_train,Y_test = train_test_split(X_data,Y_data,random_state=0,stratify=Y_data) 
+# print(Y_train.shape, Y_test.shape)
+
+
+Random Forrest &amp;amp; SVM
+Both models performed really well given the size of the datset. I got Random Forrest model with an accuracy score of 0.951 and SVM model with an accuracy score of 0.965. It looks like overfitting occured in Random Forrest model, because it performed really well on trainset, but poorly on testset. We can solve overfitting by tuning the hyperparameters of the model.
+
+clf=RandomForestClassifier(n_estimators=100,random_state = 42)
+clf.fit(X_train,Y_train)
+print('Random Forrest Accuracy on the Training subset:{:.3f}'.format(clf.score(X_train,Y_train)))
+print('Random Forrest Accuracy on the Test subset:{:.3f}'.format(clf.score(X_test,Y_test)))
+
+svc = svm.SVC(kernel='linear')
+svc.fit(X_train, Y_train)    
+print('SVM Accuracy on the Training subset:{:.3f}'.format(svc.score(X_train,Y_train)))
+print('SVM Accuracy on the Test subset:{:.3f}'.format(svc.score(X_test,Y_test)))
+
+
+
+Hyperparameter Optimization
+I used RandomSearchCV to optimize the hyperparameters. Now I got Random Forrest model with an accuracy score of 0.965. The model improved after the hyperparmeter optimization.
+rf_clf=RandomForestClassifier(random_state = 42)
+param_grid = {&quot;max_depth&quot;: [3, None],
+              &quot;max_features&quot;:  sp_randint(1, 8),
+              &quot;min_samples_split&quot;: sp_randint(2, 11),
+              &quot;min_samples_leaf&quot;: sp_randint(1, 11),
+              &quot;bootstrap&quot;: [True, False],
+              &quot;criterion&quot;: [&quot;gini&quot;, &quot;entropy&quot;]}
+rand_rf = RandomizedSearchCV(rf_clf, param_distributions=param_grid, n_iter=100, random_state=42)
+rand_rf.fit(X_train,Y_train)
+print('Random Forrest Accuracy on the Training subset:{:.3f}'.format(rand_rf.score(X_train,Y_train)))
+print('Random Forrest Accuracy on the Test subset:{:.3f}'.format(rand_rf.score(X_test,Y_test)))
+
+
+
+</description>
+        <pubDate>Tue, 12 Sep 2017 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2017/09/12/breast_cancer_prediction/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/09/12/breast_cancer_prediction/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Let me find your Spotify music</title>
+        <description>
+
+I love listening to music, however often, the hardest time comes, when I get tired of my playlist, and have to search for music that I want to hear. I am sure that you experienced the same situation as I did. In this post, I am going to build a machine learning model that can classify a song that I will like or not by using the Decision Tree algorithm.
+
+I Collected the dataset from Spotify’s API, and each song is labeled “1” meaning I like it and “0” for songs I don’t like. First I am going to import the libraries and load the dataset.
+
+import numpy as np
+import pandas as pd 
+from matplotlib import pyplot as plt
+
+from scipy import misc
+from sklearn import tree
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier, export_graphviz
+
+data = pd.read_csv('spotify.csv')
+
+
+Prepare Data
+
+It is always important to check the dataset first and clean the data, before you run any code on them. I found out that “Unnamed: 0” column does not contain any revlevant information on buidinng a model, so I am going to drop it. In addion to that, drop all “NA”.
+
+print(data.describe())
+half_count = len(data) / 2
+data = data.dropna(thresh=half_count,axis=1) 
+data.drop(&quot;Unnamed: 0&quot;,axis=1,inplace=True)
+
+
+Feature Selection
+Now it is time to select the features. I beilivev that the feature selection is important step, and there are huge tradeoffs for selecting right and removing certain features in a model. Running the following command will show what features that we have.
+
+print(data.columns.values)
+
+
+I am going to use the following features to train a model.
+
+features = ['acousticness','danceability', 'duration_ms', 'energy', 'instrumentalness', 'key',
+           'liveness', 'speechiness', 'tempo', 'time_signature', 'valence']
+
+
+Split Data
+Y_data = data['target']
+X_data = data[features] 
+
+X_train,X_test,Y_train,Y_test = train_test_split(X_data,Y_data,random_state=42,stratify=Y_data) #what does stratify do?
+# print(Y_train.shape, Y_test.shape)
+
+
+Now it is time to implement Decision Tree Classifier.
+clf = tree.DecisionTreeClassifier(min_samples_leaf=8, random_state=42) 
+dt = clf.fit(X_train, y_train) 
+
+y_pred = clf.predict(X_test) 
+#print(y_pred) 
+
+score = accuracy_score(y_test, y_pred) * 100
+print(&quot;Decision Tree Classifier Accuracy: {}%&quot;.format(score))
+
+I got 75.495% accuracy in this model.
+
+If you want to optimize the hyperparmeters, such as max_features, min_samples_split, and min_samples_leaf, you cans use K-Fold (10-Fold) cross validation with hyperparameter optimization using RandomSearchCV. You also have anohter option ( Grid Search ), but it takes longer than Random Search.
+
+from sklearn.model_selection import RandomizedSearchCV
+from scipy.stats import randint as sp_randint
+
+dt_clf = DecisionTreeClassifier(random_state=42)
+param_grid = {'max_features': ['auto', 'sqrt', 'log2'],
+              'min_samples_split': sp_randint(2, 11), 
+              'min_samples_leaf': sp_randint(1, 11)}
+
+rand_dt = RandomizedSearchCV(dt_clf, param_grid, cv=10, scoring=&quot;accuracy&quot;, n_iter=100, random_state=42)
+rand_dt.fit(X_train,Y_train)
+
+print(rand_dt.best_score_)
+print(rand_dt.best_params_)
+print(rand_dt.best_estimator_)
+
+
+I hope you enjoyed this post, and please let me know if you have any questions, or feedback. You can reach me on Linkedin or email me at sunghokim@wustl.edu.
 </description>
         <pubDate>Tue, 05 Sep 2017 00:00:00 -0400</pubDate>
         <link>http://localhost:4000/2017/09/05/spotify/</link>
@@ -56,68 +229,6 @@ As a result of the analysis, it seems like Philippe Coutinho is most similar to 
         <pubDate>Fri, 01 Sep 2017 00:00:00 -0400</pubDate>
         <link>http://localhost:4000/2017/09/01/neymar/</link>
         <guid isPermaLink="true">http://localhost:4000/2017/09/01/neymar/</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Exploring Chipotle Order Data</title>
-        <description>This data is based on about 1,800 Grubhub orders from July to December 2012. The data was collected from two Chipotle restaurants in Wahsington D.C &amp;amp; East Lansing. It seemed interesting for me to explore the dataset by asking questions like what items people order the most, what is the average order price, etc. I am going to use python to analyze the data.
-
-First, Load the tsv file using Pandas and print(df.head(10)) to see the format of data and first 10 items on the list. I recommend you to do this on every data set, before you execute any commands on the data.
-
-As you can see from table, the data is described by order_id, quantity, item_name, choice_descrptiption and price. Let’s try to look at which item is most ordered by people on the list. You can use matplotlib.pyplot to visualize the data.
-
-import pandas as pd
-df = pd.read_table('orders.tsv')
-print(df.head(10))
-
-import matplotlib.pyplot as plt
-items = df.item_name.value_counts().plot(kind=&quot;bar&quot;)
-plt.show()
-
-
-
-
-It seems like the most popular item is the “Chicken Bowl” and the least ordered items are the “Carnitas Salad” and the “Veggie Crispy Tacos”. Besides the “Chicken Bowl”, I am curious as to what other items are most ordered. Let’s zoom in on the graph a little bit closer and see what those are. To do this, type the following command.
-
-top10 = df.item_name.value_counts()[:10].plot(kind=&quot;bar&quot;)
-plt.show()
-
-
-
-
-Now you can see the name of the items more clearly than before. If you look at the graph, it is interesting to see that two items (Canned Soda, bottled water) from the top 10 are beverages. Let’s look at what kind of canned soda people ordered the most.  It is interesting to see that Mountain Dew and Dr.Pepper ranked second and third respectively.
-
-df['item_price'] = df['item_price'].str.replace('$','')  
-df['item_price'] = df['item_price'].astype(float)
-orders = df.groupby('order_id').sum()  
-print(orders.head())
-
-
-
-
-It was intriguing to explore the items that are most ordered by customers at Chipolte. Now, let’s try to look at the data from a business perspective and explore the data of price per order. First, you have to replace “$” with “” and change the data type to “float” in “item_price column”, because we would like to analyzes the numbers, instead of strings.
-
-descriptions = df.groupby([&quot;item_name&quot;, &quot;choice_description&quot;])[&quot;order_id&quot;].count().reset_index(name=&quot;count&quot;)
-descriptions = descriptions[descriptions['item_name'].str.contains(&quot;Canned Soda&quot;)]  
-descriptions.sort_values('count',ascending=False)
-print(descriptions)
-
-descriptions.choice_description.value_counts().plot(kind=&quot;bar&quot;)
-plt.show()
-
-
-On average, it looks like people tend to spend 18.81 dollars per order. The minimum is 10.08 dollars per order and the maximum is 205 dollars per order. It is quite incredible to see that there are people who order 205 dollars worth of chipotle at a time. Maybe that person is catering a party or some other sort or large gathering.
-
-
-
-It was fun exploring the data and finding a trend. I am planning to post more like this in the future. If you have any questions, feedback, advice or corrections please get in touch with me on Linkedin or email me at sunghokim@wustl.edu. I referred to this blog to write this post.
-
-</description>
-        <pubDate>Sun, 20 Aug 2017 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/2017/08/20/chipotle/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/08/20/chipotle/</guid>
         
         
       </item>
@@ -181,9 +292,71 @@ gmap.scatter(red.lat,red.long, &quot;red&quot; , size=25, marker=False)
 
 I hope you enjoyed this post, and please let me know if you have any questions, or feedback. You can reach me on Linkedin or email me at sunghokim@wustl.edu.
 </description>
+        <pubDate>Tue, 15 Aug 2017 00:00:00 -0400</pubDate>
+        <link>http://localhost:4000/2017/08/15/nyc_taxi/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/08/15/nyc_taxi/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Exploring Chipotle Order Data</title>
+        <description>This data is based on about 1,800 Grubhub orders from July to December 2012. The data was collected from two Chipotle restaurants in Wahsington D.C &amp;amp; East Lansing. It seemed interesting for me to explore the dataset by asking questions like what items people order the most, what is the average order price, etc. I am going to use python to analyze the data.
+
+First, Load the tsv file using Pandas and print(df.head(10)) to see the format of data and first 10 items on the list. I recommend you to do this on every data set, before you execute any commands on the data.
+
+As you can see from table, the data is described by order_id, quantity, item_name, choice_descrptiption and price. Let’s try to look at which item is most ordered by people on the list. You can use matplotlib.pyplot to visualize the data.
+
+import pandas as pd
+df = pd.read_table('orders.tsv')
+print(df.head(10))
+
+import matplotlib.pyplot as plt
+items = df.item_name.value_counts().plot(kind=&quot;bar&quot;)
+plt.show()
+
+
+
+
+It seems like the most popular item is the “Chicken Bowl” and the least ordered items are the “Carnitas Salad” and the “Veggie Crispy Tacos”. Besides the “Chicken Bowl”, I am curious as to what other items are most ordered. Let’s zoom in on the graph a little bit closer and see what those are. To do this, type the following command.
+
+top10 = df.item_name.value_counts()[:10].plot(kind=&quot;bar&quot;)
+plt.show()
+
+
+
+
+Now you can see the name of the items more clearly than before. If you look at the graph, it is interesting to see that two items (Canned Soda, bottled water) from the top 10 are beverages. Let’s look at what kind of canned soda people ordered the most.  It is interesting to see that Mountain Dew and Dr.Pepper ranked second and third respectively.
+
+df['item_price'] = df['item_price'].str.replace('$','')  
+df['item_price'] = df['item_price'].astype(float)
+orders = df.groupby('order_id').sum()  
+print(orders.head())
+
+
+
+
+It was intriguing to explore the items that are most ordered by customers at Chipolte. Now, let’s try to look at the data from a business perspective and explore the data of price per order. First, you have to replace “$” with “” and change the data type to “float” in “item_price column”, because we would like to analyzes the numbers, instead of strings.
+
+descriptions = df.groupby([&quot;item_name&quot;, &quot;choice_description&quot;])[&quot;order_id&quot;].count().reset_index(name=&quot;count&quot;)
+descriptions = descriptions[descriptions['item_name'].str.contains(&quot;Canned Soda&quot;)]  
+descriptions.sort_values('count',ascending=False)
+print(descriptions)
+
+descriptions.choice_description.value_counts().plot(kind=&quot;bar&quot;)
+plt.show()
+
+
+On average, it looks like people tend to spend 18.81 dollars per order. The minimum is 10.08 dollars per order and the maximum is 205 dollars per order. It is quite incredible to see that there are people who order 205 dollars worth of chipotle at a time. Maybe that person is catering a party or some other sort or large gathering.
+
+
+
+It was fun exploring the data and finding a trend. I am planning to post more like this in the future. If you have any questions, feedback, advice or corrections please get in touch with me on Linkedin or email me at sunghokim@wustl.edu. I referred to this blog to write this post.
+
+</description>
         <pubDate>Sat, 05 Aug 2017 00:00:00 -0400</pubDate>
-        <link>http://localhost:4000/2017/08/05/nyc_taxi/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/08/05/nyc_taxi/</guid>
+        <link>http://localhost:4000/2017/08/05/chipotle/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/08/05/chipotle/</guid>
         
         
       </item>
