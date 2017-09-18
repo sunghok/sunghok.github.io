@@ -192,7 +192,7 @@ hr.small {                     /*  막대기 조절  */
   display: block;
 }
 .intro-header .post-heading .subheading {     
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Times New Roman", Times, serif;
   font-size: 24px;
   margin: 10px 0 30px;
   font-weight: 600;
