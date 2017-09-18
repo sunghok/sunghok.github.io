@@ -8,10 +8,11 @@ subtitle:  	Using the DecisionTree Algorithm in Python
 ---
 ![Description](/img/post/spotify/logo.png)
 
-I love listening to music, however often, the hardest time comes, when I get tired of my playlist, and have to search for music that I want to hear. I am sure that you experienced the same situation as I did. In this post, I am going to build a machine learning model that can classify a song that I will like or not by using the Decision Tree algorithm.
+I love listening to music, however often, the hardest time comes, when I get tired of my playlist, and have to search for music that I want to hear. I am sure that you have experienced the same situation. In this post, I am going to build a machine learning model that can predict whether or not I will like a song by using classify Decision Tree algorithm.
 
 
-I Collected the dataset from Spotify's API, and each song is labeled "1" meaning I like it and "0" for songs I don't like. First I am going to import the libraries and load the dataset.
+
+I collected the dataset from Spotify’s API, and each song is either labeled “1” meaning I like it or “0” meaning that I don't like it. First I am going to import the libraries and load the dataset.
 
 <pre style='color:#d1d1d1;background:#000000;'><span style='color:#e66170; font-weight:bold; '>import</span> numpy <span style='color:#e66170; font-weight:bold; '>as</span> np
 <span style='color:#e66170; font-weight:bold; '>import</span> pandas <span style='color:#e66170; font-weight:bold; '>as</span> pd 
@@ -27,9 +28,11 @@ data <span style='color:#d2cd86; '>=</span> pd<span style='color:#d2cd86; '>.</s
 </pre>
 
 
-Prepare Data
 
-It is always important to check the dataset first and clean the data, before you run any code on them. I found out that "Unnamed: 0" column does not contain any revlevant information on buidinng a model, so I am going to drop it. In addion to that, drop all "NA".
+**PREPARE DATA**
+
+It is always important to check the dataset first and clean the data, before you run any code on them. I found out that “Unnamed: 0” column does not contain any relevant information on building a model, so I am going to drop it. In addition to that, drop all “NA”.
+
 
 <pre style='color:#d1d1d1;background:#000000;'><span style='color:#e66170; font-weight:bold; '>print</span><span style='color:#d2cd86; '>(</span>data<span style='color:#d2cd86; '>.</span>describe<span style='color:#d2cd86; '>(</span><span style='color:#d2cd86; '>)</span><span style='color:#d2cd86; '>)</span>
 half_count <span style='color:#d2cd86; '>=</span> <span style='color:#e66170; font-weight:bold; '>len</span><span style='color:#d2cd86; '>(</span>data<span style='color:#d2cd86; '>)</span> <span style='color:#00dddd; '>/</span> <span style='color:#00a800; '>2</span>
@@ -37,8 +40,10 @@ data <span style='color:#d2cd86; '>=</span> data<span style='color:#d2cd86; '>.<
 data<span style='color:#d2cd86; '>.</span>drop<span style='color:#d2cd86; '>(</span><span style='color:#00c4c4; '>"Unnamed: 0"</span><span style='color:#d2cd86; '>,</span>axis<span style='color:#d2cd86; '>=</span><span style='color:#00a800; '>1</span><span style='color:#d2cd86; '>,</span>inplace<span style='color:#d2cd86; '>=</span>True<span style='color:#d2cd86; '>)</span>
 </pre>
 
-Feature Selection
-Now it is time to select the features. I beilivev that the feature selection is important step, and there are huge tradeoffs for selecting right and removing certain features in a model. Running the following command will show what features that we have. 
+**FEATURE SELECTION**
+
+Now it is time to select the features. I believe that the feature selection is important step, and there are huge tradeoffs for selecting right and removing certain features in a model. Running the following command will show what features that we have.
+
 
 <pre style='color:#d1d1d1;background:#000000;'><span style='color:#e66170; font-weight:bold; '>print</span><span style='color:#d2cd86; '>(</span>data<span style='color:#d2cd86; '>.</span>columns<span style='color:#d2cd86; '>.</span>values<span style='color:#d2cd86; '>)</span>
 </pre>
@@ -50,7 +55,7 @@ I am going to use the following features to train a model.
 </pre>
 
 
-Split Data
+**SPLIT DATA**
 <pre style='color:#d1d1d1;background:#000000;'>Y_data <span style='color:#d2cd86; '>=</span> data<span style='color:#d2cd86; '>[</span><span style='color:#00c4c4; '>'target'</span><span style='color:#d2cd86; '>]</span>
 X_data <span style='color:#d2cd86; '>=</span> data<span style='color:#d2cd86; '>[</span>features<span style='color:#d2cd86; '>]</span> 
 
@@ -58,8 +63,8 @@ X_train<span style='color:#d2cd86; '>,</span>X_test<span style='color:#d2cd86; '
 <span style='color:#9999a9; '># print(Y_train.shape, Y_test.shape)</span>
 </pre>
 
-
 Now it is time to implement Decision Tree Classifier. 
+ 
 <pre style='color:#d1d1d1;background:#000000;'>clf <span style='color:#d2cd86; '>=</span> tree<span style='color:#d2cd86; '>.</span>DecisionTreeClassifier<span style='color:#d2cd86; '>(</span>min_samples_leaf<span style='color:#d2cd86; '>=</span><span style='color:#00a800; '>8</span><span style='color:#d2cd86; '>,</span> random_state<span style='color:#d2cd86; '>=</span><span style='color:#00a800; '>42</span><span style='color:#d2cd86; '>)</span> 
 dt <span style='color:#d2cd86; '>=</span> clf<span style='color:#d2cd86; '>.</span>fit<span style='color:#d2cd86; '>(</span>X_train<span style='color:#d2cd86; '>,</span> y_train<span style='color:#d2cd86; '>)</span> 
 
@@ -72,7 +77,8 @@ score <span style='color:#d2cd86; '>=</span> accuracy_score<span style='color:#d
 I got 75.495% accuracy in this model.
 
 
-If you want to optimize the hyperparmeters, such as max_features, min_samples_split, and min_samples_leaf, you cans use K-Fold (10-Fold) cross validation with hyperparameter optimization using RandomSearchCV. You also have anohter option ( Grid Search ), but it takes longer than Random Search.
+If you want to optimize the hyperparmeters, such as max_features, min_samples_split, and min_samples_leaf, you can use K-Fold (10-Fold) cross validation with hyperparameter optimization using RandomSearchCV. You also have another option (Grid Search ), but it takes longer than Random Search.
+
 
 <pre style='color:#d1d1d1;background:#000000;'><span style='color:#e66170; font-weight:bold; '>from</span> sklearn<span style='color:#d2cd86; '>.</span>model_selection <span style='color:#e66170; font-weight:bold; '>import</span> RandomizedSearchCV
 <span style='color:#e66170; font-weight:bold; '>from</span> scipy<span style='color:#d2cd86; '>.</span>stats <span style='color:#e66170; font-weight:bold; '>import</span> randint <span style='color:#e66170; font-weight:bold; '>as</span> sp_randint

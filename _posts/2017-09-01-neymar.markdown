@@ -10,13 +10,14 @@ subtitle:  	Using K-nearest neighbors (KNN) to find a simliar player to Neymar
 
 ![Description](/img/post/neymar.png)
 
-Over this summer, there was a record-breaking deal in the soccer transfer market. Paris Saint-Germain triggered Neymar ’s release clause and paid €222 million to FC Barcelona. Last year, Paul Pogba’s deal from Juventus to Manchester United was a record-breaking, and the amount was €222. The transfer values just have increased exponentially.
+Over the summer, there was a record-breaking deal in the soccer transfer market. Paris Saint-Germain triggered Neymar ’s release clause and paid €222 million to FC Barcelona. Last year, Paul Pogba’s deal from Juventus to Manchester United was a record-breaking, and the amount was €222. The transfer values just have increased exponentially.
 
 
-In this post, I am not going to talk about if the value of Neymar is worth it or not, but how FC Barcelona should invest money from Neymar’s fee in finding his successor. I am going to use the K-nearest neighbors(KNN) algorithm to find out which soccer players who have capabilities to replace “Neymar” based on the player’s stats from last season (2016-2017 season). I did not include Cristiano Ronaldo or other real madrid players in the datset, because there is a huge rivalry between Real Madrid and FC Barcelona that players from Real Madrid would move to FC Barcelona.
+In this post, I am not going to talk about if the value of Neymar is worth it or not, but how FC Barcelona should invest the money from Neymar’s fee into finding his successor. I am going to use the K-nearest neighbors(KNN) algorithm to find out which soccer players who have capabilities to replace “Neymar” based on the player’s stats from last season (2016-2017 season). I did not include Cristiano Ronaldo or other Real Madrid players in the dataset, because there is a huge rivalry between Real Madrid and FC Barcelona that players from Real Madrid would move to FC Barcelona.
 
 
 First, normalize the dataset, then find the Euclidian distance between Neymar(target) and the other players. Since we are looking for a player that is most similar to Neymar, we should find the second most similar to Neymar. The distance between Neymar to Neymar is 0. 
+
 
 <pre style='color:#d1d1d1;background:#000000;'><span style='color:#e66170; font-weight:bold; '>import</span> pandas <span style='color:#e66170; font-weight:bold; '>as</span> pd
 <span style='color:#e66170; font-weight:bold; '>import</span> math
@@ -39,6 +40,6 @@ most_similar_to_neymar <span style='color:#d2cd86; '>=</span> soccer<span style=
 <span style='color:#e66170; font-weight:bold; '>print</span><span style='color:#d2cd86; '>(</span>most_similar_to_neymar<span style='color:#d2cd86; '>)</span>
 </pre>
 
-
-
 As a result of the analysis, it seems like Philippe Coutinho is most similar to Neymar. Angel Di Maria and Paulo Dybala are the second, third similar to Neymar respectively. According to the media, FC Barcelona actually had tried to buy Philippe Coutinho and Angel Di Maria before the transfer window closed. However, none of those deals happened, and FC Barcelona ended up signing Ousmane Dembele to replace Neymar. 
+
+I hope you enjoyed this post, and please let me know if you have any questions, or feedback. You can reach me on [Linkedin](https://www.linkedin.com/in/sunghok/) or email me at <a href="mailto:sunghokim@wustl.edu?Subject=Hello%20again" target="_top">sunghokim@wustl.edu</a>.
